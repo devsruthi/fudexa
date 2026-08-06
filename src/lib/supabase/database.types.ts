@@ -516,6 +516,7 @@ export interface Database {
           total_delivery_fees: number | null
           total_discounts: number | null
         }
+        Relationships: []
       }
       analytics_daily_orders: {
         Row: {
@@ -527,6 +528,7 @@ export interface Database {
           cancelled_count: number | null
           revenue: number | null
         }
+        Relationships: []
       }
       analytics_monthly_sales: {
         Row: {
@@ -537,6 +539,7 @@ export interface Database {
           revenue: number | null
           average_order_value: number | null
         }
+        Relationships: []
       }
       analytics_best_selling_menu_items: {
         Row: {
@@ -550,6 +553,7 @@ export interface Database {
           revenue: number | null
           order_count: number | null
         }
+        Relationships: []
       }
       analytics_top_customers: {
         Row: {
@@ -562,6 +566,7 @@ export interface Database {
           total_spent: number | null
           last_order_at: string | null
         }
+        Relationships: []
       }
       analytics_average_order_value: {
         Row: {
@@ -572,6 +577,7 @@ export interface Database {
           average_order_value: number | null
           median_order_value: number | null
         }
+        Relationships: []
       }
       analytics_popular_categories: {
         Row: {
@@ -583,6 +589,7 @@ export interface Database {
           revenue: number | null
           order_count: number | null
         }
+        Relationships: []
       }
     }
     Functions: {

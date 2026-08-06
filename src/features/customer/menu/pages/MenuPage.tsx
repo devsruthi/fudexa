@@ -1,11 +1,9 @@
-import { PagePlaceholder } from '@/components/shared'
+import { Navigate, useParams } from 'react-router-dom'
+import { restaurantDetailPath } from '@/features/customer/utils'
 
+/** Legacy menu route — menu lives on the restaurant detail page. */
 export function MenuPage() {
-  return (
-    <PagePlaceholder
-      feature="Customer · Menu"
-      title="Menu"
-      description="Category navigation, item cards, and modifiers will be built in this feature."
-    />
-  )
+  const { restaurantId } = useParams<{ restaurantId: string }>()
+  if (!restaurantId) return <Navigate to="/customer/restaurants" replace />
+  return <Navigate to={restaurantDetailPath(restaurantId)} replace />
 }
