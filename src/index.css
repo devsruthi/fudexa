@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+/* =============================================================================
+   OrderFlow Design System
+   CSS custom properties power light / dark themes. Toggle via `.dark` on <html>.
+   ============================================================================= */
+
+:root {
+  /* Brand */
+  --color-primary: 14 165 233;
+  --color-primary-foreground: 255 255 255;
+  --color-secondary: 100 116 139;
+  --color-secondary-foreground: 255 255 255;
+
+  /* Semantic */
+  --color-success: 34 197 94;
+  --color-success-foreground: 255 255 255;
+  --color-warning: 245 158 11;
+  --color-warning-foreground: 15 23 42;
+  --color-danger: 239 68 68;
+  --color-danger-foreground: 255 255 255;
+
+  /* Surfaces */
+  --color-background: 248 250 252;
+  --color-foreground: 15 23 42;
+  --color-surface: 255 255 255;
+  --color-surface-foreground: 15 23 42;
+  --color-muted: 241 245 249;
+  --color-muted-foreground: 100 116 139;
+  --color-border: 226 232 240;
+  --color-ring: 14 165 233;
+
+  /* Shape & elevation */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.08);
+
+  /* Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+.dark {
+  --color-primary: 56 189 248;
+  --color-primary-foreground: 8 47 73;
+  --color-secondary: 148 163 184;
+  --color-secondary-foreground: 15 23 42;
+
+  --color-success: 74 222 128;
+  --color-success-foreground: 20 83 45;
+  --color-warning: 251 191 36;
+  --color-warning-foreground: 69 26 3;
+  --color-danger: 248 113 113;
+  --color-danger-foreground: 69 10 10;
+
+  --color-background: 2 6 23;
+  --color-foreground: 241 245 249;
+  --color-surface: 15 23 42;
+  --color-surface-foreground: 241 245 249;
+  --color-muted: 30 41 59;
+  --color-muted-foreground: 148 163 184;
+  --color-border: 51 65 85;
+  --color-ring: 56 189 248;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.55), 0 4px 6px -4px rgb(0 0 0 / 0.45);
+}
+
+@theme inline {
+  --color-primary: rgb(var(--color-primary));
+  --color-primary-foreground: rgb(var(--color-primary-foreground));
+  --color-secondary: rgb(var(--color-secondary));
+  --color-secondary-foreground: rgb(var(--color-secondary-foreground));
+  --color-success: rgb(var(--color-success));
+  --color-success-foreground: rgb(var(--color-success-foreground));
+  --color-warning: rgb(var(--color-warning));
+  --color-warning-foreground: rgb(var(--color-warning-foreground));
+  --color-danger: rgb(var(--color-danger));
+  --color-danger-foreground: rgb(var(--color-danger-foreground));
+  --color-background: rgb(var(--color-background));
+  --color-foreground: rgb(var(--color-foreground));
+  --color-surface: rgb(var(--color-surface));
+  --color-surface-foreground: rgb(var(--color-surface-foreground));
+  --color-muted: rgb(var(--color-muted));
+  --color-muted-foreground: rgb(var(--color-muted-foreground));
+  --color-border: rgb(var(--color-border));
+  --color-ring: rgb(var(--color-ring));
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: rgb(var(--color-border));
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply m-0 min-h-dvh bg-background font-sans text-foreground antialiased;
+  }
+
+  #root {
+    @apply min-h-dvh;
+  }
+}
