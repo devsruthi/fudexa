@@ -1,5 +1,7 @@
+import { lazy, Suspense, type ComponentType } from 'react'
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { AuthLayout, CustomerLayout, RestaurantLayout } from '@/components/layout'
+import { Spinner } from '@/components/ui'
 import {
   ForgotPasswordPage,
   GuestRoute,
@@ -19,14 +21,39 @@ import { MenuPage } from '@/features/customer/menu'
 import { OrderDetailPage, OrdersPage } from '@/features/customer/orders'
 import { ProfilePage } from '@/features/customer/profile'
 import { RestaurantDetailPage, RestaurantsPage } from '@/features/customer/restaurants'
-import { AnalyticsPage } from '@/features/restaurant/analytics'
-import { DashboardPage } from '@/features/restaurant/dashboard'
-import { InventoryPage } from '@/features/restaurant/inventory'
-import { RestaurantMenuPage } from '@/features/restaurant/menu'
-import { RestaurantOrderDetailPage, RestaurantOrdersPage } from '@/features/restaurant/orders'
-import { ReviewsPage } from '@/features/restaurant/reviews'
-import { SettingsPage } from '@/features/restaurant/settings'
 import { PATHS } from './paths'
+
+function lazyPage(factory: () => Promise<{ [key: string]: ComponentType }>, exportName: string) {
+  const Comp = lazy(() =>
+    factory().then((mod) => ({ default: mod[exportName] as ComponentType })),
+  )
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-48 items-center justify-center">
+          <Spinner />
+        </div>
+      }
+    >
+      <Comp />
+    </Suspense>
+  )
+}
+
+const restaurant = {
+  dashboard: () => lazyPage(() => import('@/features/restaurant/dashboard'), 'DashboardPage'),
+  orders: () => lazyPage(() => import('@/features/restaurant/orders'), 'RestaurantOrdersPage'),
+  orderDetail: () =>
+    lazyPage(() => import('@/features/restaurant/orders'), 'RestaurantOrderDetailPage'),
+  menu: () => lazyPage(() => import('@/features/restaurant/menu'), 'RestaurantMenuPage'),
+  menuNew: () => lazyPage(() => import('@/features/restaurant/menu'), 'MenuItemNewPage'),
+  menuEdit: () => lazyPage(() => import('@/features/restaurant/menu'), 'MenuItemEditPage'),
+  categories: () => lazyPage(() => import('@/features/restaurant/categories'), 'CategoriesPage'),
+  analytics: () => lazyPage(() => import('@/features/restaurant/analytics'), 'AnalyticsPage'),
+  inventory: () => lazyPage(() => import('@/features/restaurant/inventory'), 'InventoryPage'),
+  reviews: () => lazyPage(() => import('@/features/restaurant/reviews'), 'ReviewsPage'),
+  settings: () => lazyPage(() => import('@/features/restaurant/settings'), 'SettingsPage'),
+}
 
 /**
  * Application route tree.
@@ -59,7 +86,6 @@ export const appRoutes: RouteObject[] = [
     children: [{ path: PATHS.auth.resetPassword, element: <ResetPasswordPage /> }],
   },
   {
-    // Legacy /auth/* redirects
     path: '/auth',
     children: [
       { index: true, element: <Navigate to={PATHS.auth.login} replace /> },
@@ -99,14 +125,17 @@ export const appRoutes: RouteObject[] = [
             element: <RestaurantLayout />,
             children: [
               { index: true, element: <Navigate to={PATHS.restaurant.dashboard} replace /> },
-              { path: 'dashboard', element: <DashboardPage /> },
-              { path: 'orders', element: <RestaurantOrdersPage /> },
-              { path: 'orders/:orderId', element: <RestaurantOrderDetailPage /> },
-              { path: 'menu', element: <RestaurantMenuPage /> },
-              { path: 'analytics', element: <AnalyticsPage /> },
-              { path: 'inventory', element: <InventoryPage /> },
-              { path: 'reviews', element: <ReviewsPage /> },
-              { path: 'settings', element: <SettingsPage /> },
+              { path: 'dashboard', element: restaurant.dashboard() },
+              { path: 'orders', element: restaurant.orders() },
+              { path: 'orders/:orderId', element: restaurant.orderDetail() },
+              { path: 'menu', element: restaurant.menu() },
+              { path: 'menu/new', element: restaurant.menuNew() },
+              { path: 'menu/:itemId/edit', element: restaurant.menuEdit() },
+              { path: 'categories', element: restaurant.categories() },
+              { path: 'analytics', element: restaurant.analytics() },
+              { path: 'inventory', element: restaurant.inventory() },
+              { path: 'reviews', element: restaurant.reviews() },
+              { path: 'settings', element: restaurant.settings() },
             ],
           },
         ],

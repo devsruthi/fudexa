@@ -1,0 +1,6 @@
+export { merchantOrderService } from './order.service'
+export { merchantMenuService } from './menu.service'
+export { merchantInventoryService } from './inventory.service'
+export { merchantReviewService } from './review.service'
+export { merchantAnalyticsService } from './analytics.service'
+export { restaurantSettingsService } from './settings.service'

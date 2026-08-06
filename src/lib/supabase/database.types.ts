@@ -74,6 +74,11 @@ export interface Database {
           is_open: boolean
           rating: number
           total_reviews: number
+          tax_percentage: number
+          default_delivery_fee: number
+          minimum_order: number
+          delivery_radius_km: number | null
+          accepted_payment_methods: string[]
           created_at: string
           updated_at: string
         }
@@ -95,6 +100,11 @@ export interface Database {
           is_open?: boolean
           rating?: number
           total_reviews?: number
+          tax_percentage?: number
+          default_delivery_fee?: number
+          minimum_order?: number
+          delivery_radius_km?: number | null
+          accepted_payment_methods?: string[]
           created_at?: string
           updated_at?: string
         }
@@ -116,6 +126,11 @@ export interface Database {
           is_open?: boolean
           rating?: number
           total_reviews?: number
+          tax_percentage?: number
+          default_delivery_fee?: number
+          minimum_order?: number
+          delivery_radius_km?: number | null
+          accepted_payment_methods?: string[]
           created_at?: string
           updated_at?: string
         }
@@ -176,6 +191,8 @@ export interface Database {
           is_available: boolean
           preparation_time: number | null
           calories: number | null
+          is_featured: boolean
+          tags: string[]
           created_at: string
           updated_at: string
         }
@@ -190,6 +207,8 @@ export interface Database {
           is_available?: boolean
           preparation_time?: number | null
           calories?: number | null
+          is_featured?: boolean
+          tags?: string[]
           created_at?: string
           updated_at?: string
         }
@@ -204,6 +223,8 @@ export interface Database {
           is_available?: boolean
           preparation_time?: number | null
           calories?: number | null
+          is_featured?: boolean
+          tags?: string[]
           created_at?: string
           updated_at?: string
         }
@@ -393,6 +414,8 @@ export interface Database {
           customer_id: string
           rating: number
           review: string | null
+          reply: string | null
+          replied_at: string | null
           created_at: string
         }
         Insert: {
@@ -401,6 +424,8 @@ export interface Database {
           customer_id: string
           rating: number
           review?: string | null
+          reply?: string | null
+          replied_at?: string | null
           created_at?: string
         }
         Update: {
@@ -409,6 +434,8 @@ export interface Database {
           customer_id?: string
           rating?: number
           review?: string | null
+          reply?: string | null
+          replied_at?: string | null
           created_at?: string
         }
         Relationships: [
@@ -501,6 +528,75 @@ export interface Database {
             referencedColumns: ['id']
           },
         ]
+      }
+      order_status_events: {
+        Row: {
+          id: string
+          order_id: string
+          from_status: OrderStatus | null
+          to_status: OrderStatus
+          changed_by: string | null
+          note: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          from_status?: OrderStatus | null
+          to_status: OrderStatus
+          changed_by?: string | null
+          note?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          from_status?: OrderStatus | null
+          to_status?: OrderStatus
+          changed_by?: string | null
+          note?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      inventory_movements: {
+        Row: {
+          id: string
+          inventory_id: string
+          restaurant_id: string
+          menu_item_id: string
+          previous_stock: number
+          new_stock: number
+          delta: number
+          reason: string | null
+          changed_by: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          inventory_id: string
+          restaurant_id: string
+          menu_item_id: string
+          previous_stock: number
+          new_stock: number
+          delta: number
+          reason?: string | null
+          changed_by?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          inventory_id?: string
+          restaurant_id?: string
+          menu_item_id?: string
+          previous_stock?: number
+          new_stock?: number
+          delta?: number
+          reason?: string | null
+          changed_by?: string | null
+          created_at?: string
+        }
+        Relationships: []
       }
     }
     Views: {
