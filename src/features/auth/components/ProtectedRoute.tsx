@@ -1,24 +1,23 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAuth } from '@/features/auth/context/AuthContext'
+import { Spinner } from '@/components/ui'
+import { useAuth } from '@/features/auth/hooks'
 import { PATHS } from '@/routes/paths'
 
 interface ProtectedRouteProps {
-  /** Optional custom redirect when unauthenticated. Defaults to login. */
   redirectTo?: string
 }
 
 /**
  * Ensures the user is authenticated before rendering child routes.
- * Role checks belong in RoleGuard — keep concerns separated.
  */
 export function ProtectedRoute({ redirectTo = PATHS.auth.login }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isAuthenticated, loading } = useAuth()
   const location = useLocation()
 
-  if (isLoading) {
+  if (loading) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-background text-muted-foreground">
-        Loading…
+      <div className="flex min-h-dvh items-center justify-center bg-background">
+        <Spinner label="Checking session…" />
       </div>
     )
   }

@@ -1,1 +1,20 @@
-export { supabase } from './supabaseClient'
+export { supabase } from './supabase'
+export type {
+  AppRole,
+  Category,
+  Database,
+  Favorite,
+  Inventory,
+  InventoryStatus,
+  MenuItem,
+  Notification,
+  NotificationType,
+  Order,
+  OrderItem,
+  OrderStatus,
+  PaymentMethod,
+  PaymentStatus,
+  Profile,
+  Restaurant,
+  Review,
+} from './database.types'

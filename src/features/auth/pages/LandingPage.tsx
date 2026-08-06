@@ -1,11 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui'
 import { ThemeToggle } from '@/components/shared'
+import { useAuth } from '@/features/auth/hooks'
 import { PATHS } from '@/routes/paths'
+import { getHomePathForRole } from '@/routes/role-config'
 
 /** Public marketing landing — brand-first entry before auth. */
 export function LandingPage() {
+  const { isAuthenticated, user, loading } = useAuth()
+  const navigate = useNavigate()
+
+  const handleGetStarted = () => {
+    if (isAuthenticated && user) {
+      navigate(getHomePathForRole(user.role))
+      return
+    }
+    navigate(PATHS.auth.login)
+  }
+
   return (
     <div className="relative min-h-dvh overflow-hidden bg-background">
       <div
@@ -18,9 +31,16 @@ export function LandingPage() {
         </span>
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Link to={PATHS.auth.login}>
-            <Button size="sm">Sign in</Button>
-          </Link>
+          {!loading && !isAuthenticated ? (
+            <Link to={PATHS.auth.login}>
+              <Button size="sm">Sign in</Button>
+            </Link>
+          ) : null}
+          {!loading && isAuthenticated ? (
+            <Button size="sm" onClick={handleGetStarted}>
+              Open app
+            </Button>
+          ) : null}
         </div>
       </header>
 
@@ -56,14 +76,16 @@ export function LandingPage() {
           transition={{ duration: 0.45, delay: 0.15 }}
           className="flex flex-wrap gap-3"
         >
-          <Link to={PATHS.auth.login}>
-            <Button size="lg">Get started</Button>
-          </Link>
-          <Link to={PATHS.auth.register}>
-            <Button size="lg" variant="secondary">
-              Create account
-            </Button>
-          </Link>
+          <Button size="lg" onClick={handleGetStarted}>
+            Get started
+          </Button>
+          {!isAuthenticated ? (
+            <Link to={PATHS.auth.register}>
+              <Button size="lg" variant="secondary">
+                Create account
+              </Button>
+            </Link>
+          ) : null}
         </motion.div>
       </main>
     </div>

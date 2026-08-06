@@ -1,4 +1,4 @@
-import type { UserRole } from '@/types'
+import type { AuthRole, UserRole } from '@/types'
 import { PATHS } from './paths'
 
 /**
@@ -14,11 +14,11 @@ export const ROLE_HOME_PATHS: Record<UserRole, string> = {
 }
 
 /** Roles that currently have a mounted route tree. */
-export const ACTIVE_ROLES = ['customer', 'restaurant'] as const satisfies readonly UserRole[]
+export const ACTIVE_ROLES = ['customer', 'restaurant'] as const satisfies readonly AuthRole[]
 
 export type ActiveRole = (typeof ACTIVE_ROLES)[number]
 
-export function getHomePathForRole(role: UserRole): string {
+export function getHomePathForRole(role: UserRole | AuthRole): string {
   return ROLE_HOME_PATHS[role]
 }
 

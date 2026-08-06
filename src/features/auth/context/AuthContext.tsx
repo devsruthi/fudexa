@@ -1,108 +1,260 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
-import type { AuthState, AuthUser, UserRole } from '@/types'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
+import type { Session } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
+import { authService, getAuthErrorToast, type AuthServiceError } from '@/features/auth/services'
+import {
+  mapSession,
+  type AuthActionResult,
+  type AuthUser,
+  type ForgotPasswordPayload,
+  type ResetPasswordPayload,
+  type SignInCredentials,
+  type SignUpCredentials,
+} from '@/features/auth/types'
+import type { AuthSession } from '@/types'
 import { getHomePathForRole } from '@/routes/role-config'
+import { toast } from 'sonner'
 
-const AUTH_STORAGE_KEY = 'orderflow.auth.user'
-
-interface AuthContextValue extends AuthState {
-  /** Placeholder — wire to Supabase Auth in a later iteration. */
-  signIn: (email: string, password: string) => Promise<void>
-  /** Placeholder — wire to Supabase Auth in a later iteration. */
-  signUp: (email: string, password: string, role: UserRole) => Promise<void>
-  /** Placeholder — wire to Supabase Auth in a later iteration. */
-  signOut: () => Promise<void>
-  /** Resolves the post-auth landing path for the current user. */
+interface AuthContextValue {
+  user: AuthUser | null
+  session: AuthSession | null
+  loading: boolean
+  isAuthenticated: boolean
+  login: (credentials: SignInCredentials) => Promise<AuthActionResult>
+  register: (credentials: SignUpCredentials) => Promise<AuthActionResult>
+  logout: () => Promise<void>
+  forgotPassword: (payload: ForgotPasswordPayload) => Promise<void>
+  resetPassword: (payload: ResetPasswordPayload) => Promise<void>
   getPostAuthRedirect: () => string | null
-  /** Dev/scaffold helper to simulate an authenticated session by role. */
-  setMockUser: (user: AuthUser | null) => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
-
-function readStoredUser(): AuthUser | null {
-  try {
-    const raw = sessionStorage.getItem(AUTH_STORAGE_KEY)
-    if (!raw) return null
-    return JSON.parse(raw) as AuthUser
-  } catch {
-    return null
-  }
-}
-
-function buildState(user: AuthUser | null): AuthState {
-  return {
-    user,
-    session: user
-      ? {
-          accessToken: 'mock',
-          refreshToken: 'mock',
-          expiresAt: Date.now() + 3_600_000,
-        }
-      : null,
-    isAuthenticated: Boolean(user),
-    isLoading: false,
-  }
-}
 
 interface AuthProviderProps {
   children: ReactNode
 }
 
-/**
- * Auth provider scaffold for Supabase Auth.
- * Business logic (session persistence, token refresh) is intentionally deferred.
- * Mock users are stored in sessionStorage so demo role redirects work across navigations.
- */
+async function resolveUserFromSession(session: Session | null): Promise<{
+  user: AuthUser | null
+  session: AuthSession | null
+}> {
+  if (!session?.user) {
+    return { user: null, session: null }
+  }
+
+  const result = await authService.getCurrentSessionAndUser()
+  return {
+    user: result.user,
+    session: result.session ?? mapSession(session),
+  }
+}
+
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [state, setState] = useState<AuthState>(() => buildState(readStoredUser()))
+  const [user, setUser] = useState<AuthUser | null>(null)
+  const [session, setSession] = useState<AuthSession | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const signIn = useCallback(async (_email: string, _password: string) => {
-    // TODO: Integrate supabase.auth.signInWithPassword
-    throw new Error('signIn is not implemented yet')
-  }, [])
-
-  const signUp = useCallback(async (_email: string, _password: string, _role: UserRole) => {
-    // TODO: Integrate supabase.auth.signUp + role metadata
-    throw new Error('signUp is not implemented yet')
-  }, [])
-
-  const signOut = useCallback(async () => {
-    // TODO: Integrate supabase.auth.signOut
-    sessionStorage.removeItem(AUTH_STORAGE_KEY)
-    setState(buildState(null))
-  }, [])
-
-  const setMockUser = useCallback((user: AuthUser | null) => {
-    if (user) {
-      sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user))
-    } else {
-      sessionStorage.removeItem(AUTH_STORAGE_KEY)
+  const syncAuthState = useCallback(async (nextSession: Session | null) => {
+    try {
+      const resolved = await resolveUserFromSession(nextSession)
+      setUser(resolved.user)
+      setSession(resolved.session)
+    } catch (error) {
+      console.error('[Auth] Failed to sync session', error)
+      setUser(null)
+      setSession(null)
+    } finally {
+      setLoading(false)
     }
-    setState(buildState(user))
   }, [])
+
+  useEffect(() => {
+    let mounted = true
+
+    void authService
+      .getCurrentSessionAndUser()
+      .then((result) => {
+        if (!mounted) return
+        setUser(result.user)
+        setSession(result.session)
+      })
+      .catch((error) => {
+        console.error('[Auth] Failed to restore session', error)
+        if (!mounted) return
+        setUser(null)
+        setSession(null)
+      })
+      .finally(() => {
+        if (mounted) setLoading(false)
+      })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, nextSession) => {
+      if (!mounted) return
+
+      // Avoid blocking the auth callback; resolve profile asynchronously.
+      void (async () => {
+        if (event === 'SIGNED_OUT') {
+          setUser(null)
+          setSession(null)
+          setLoading(false)
+          return
+        }
+
+        if (
+          event === 'SIGNED_IN' ||
+          event === 'TOKEN_REFRESHED' ||
+          event === 'USER_UPDATED' ||
+          event === 'PASSWORD_RECOVERY' ||
+          event === 'INITIAL_SESSION'
+        ) {
+          await syncAuthState(nextSession)
+        }
+      })()
+    })
+
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
+  }, [syncAuthState])
+
+  const notifyError = useCallback((error: unknown) => {
+    const { title, description } = getAuthErrorToast(error)
+    toast.error(title, { description })
+  }, [])
+
+  const login = useCallback(
+    async (credentials: SignInCredentials) => {
+      try {
+        const result = await authService.signIn(credentials)
+        setUser(result.user)
+        setSession(result.session)
+        toast.success('Welcome back', {
+          description: result.user ? `Signed in as ${result.user.fullName}` : undefined,
+        })
+        return result
+      } catch (error) {
+        notifyError(error)
+        throw error
+      }
+    },
+    [notifyError],
+  )
+
+  const register = useCallback(
+    async (credentials: SignUpCredentials) => {
+      try {
+        const result = await authService.signUp(credentials)
+
+        if (result.requiresEmailVerification) {
+          toast.success('Verify your email', {
+            description: 'We sent a confirmation link. Verify your email, then sign in.',
+          })
+          return result
+        }
+
+        setUser(result.user)
+        setSession(result.session)
+        toast.success('Account created', {
+          description: 'You are signed in and ready to go.',
+        })
+        return result
+      } catch (error) {
+        notifyError(error)
+        throw error
+      }
+    },
+    [notifyError],
+  )
+
+  const logout = useCallback(async () => {
+    try {
+      await authService.signOut()
+      setUser(null)
+      setSession(null)
+      toast.success('Signed out')
+    } catch (error) {
+      notifyError(error)
+      throw error
+    }
+  }, [notifyError])
+
+  const forgotPassword = useCallback(
+    async (payload: ForgotPasswordPayload) => {
+      try {
+        await authService.forgotPassword(payload)
+        toast.success('Check your email', {
+          description: 'If an account exists, we sent a password reset link.',
+        })
+      } catch (error) {
+        notifyError(error)
+        throw error
+      }
+    },
+    [notifyError],
+  )
+
+  const resetPassword = useCallback(
+    async (payload: ResetPasswordPayload) => {
+      try {
+        await authService.resetPassword(payload)
+        toast.success('Password updated', {
+          description: 'You can now sign in with your new password.',
+        })
+      } catch (error) {
+        notifyError(error)
+        throw error as AuthServiceError
+      }
+    },
+    [notifyError],
+  )
 
   const getPostAuthRedirect = useCallback(() => {
-    if (!state.user) return null
-    return getHomePathForRole(state.user.role)
-  }, [state.user])
+    if (!user) return null
+    return getHomePathForRole(user.role)
+  }, [user])
 
   const value = useMemo<AuthContextValue>(
     () => ({
-      ...state,
-      signIn,
-      signUp,
-      signOut,
+      user,
+      session,
+      loading,
+      isAuthenticated: Boolean(user && session),
+      login,
+      register,
+      logout,
+      forgotPassword,
+      resetPassword,
       getPostAuthRedirect,
-      setMockUser,
     }),
-    [state, signIn, signUp, signOut, getPostAuthRedirect, setMockUser],
+    [
+      user,
+      session,
+      loading,
+      login,
+      register,
+      logout,
+      forgotPassword,
+      resetPassword,
+      getPostAuthRedirect,
+    ],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-// Hook lives alongside provider; consumers import via features/auth barrel.
-// eslint-disable-next-line react-refresh/only-export-components -- intentional co-location
+// Hook co-located with provider for a single auth entrypoint.
+// eslint-disable-next-line react-refresh/only-export-components -- intentional
 export function useAuth(): AuthContextValue {
   const context = useContext(AuthContext)
   if (!context) {

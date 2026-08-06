@@ -1,62 +1,102 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '@/features/auth/context/AuthContext'
+import { useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { motion } from 'framer-motion'
+import { Button, FormField, Input, PasswordInput } from '@/components/ui'
+import { useAuth } from '@/features/auth/hooks'
+import { loginSchema, type LoginFormValues } from '@/features/auth/schemas'
 import { PATHS } from '@/routes/paths'
 import { getHomePathForRole } from '@/routes/role-config'
-import type { UserRole } from '@/types'
 
-const DEMO_ROLES: { role: UserRole; label: string }[] = [
-  { role: 'customer', label: 'Continue as Customer' },
-  { role: 'restaurant', label: 'Continue as Restaurant' },
-]
-
-/**
- * Placeholder login page.
- * Demo buttons simulate role-based redirects until Supabase Auth is wired.
- */
 export function LoginPage() {
-  const { setMockUser } = useAuth()
+  const { login } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleDemoLogin = (role: UserRole) => {
-    setMockUser({
-      id: `demo-${role}`,
-      email: `${role}@orderflow.dev`,
-      fullName: `Demo ${role}`,
-      role,
-    })
-    navigate(getHomePathForRole(role), { replace: true })
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '' },
+  })
+
+  const onSubmit = handleSubmit(async (values) => {
+    setSubmitting(true)
+    try {
+      const result = await login(values)
+      if (!result.user) return
+
+      const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname
+      navigate(from || getHomePathForRole(result.user.role), { replace: true })
+    } catch {
+      // Toast handled in auth context
+    } finally {
+      setSubmitting(false)
+    }
+  })
 
   return (
-    <div className="mx-auto flex w-full max-w-md flex-col gap-8">
-      <div className="space-y-2 text-center">
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-8"
+    >
+      <div className="space-y-2">
         <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">
           Sign in
         </h1>
         <p className="text-sm text-muted-foreground">
-          Auth is scaffolded for Supabase. Use a demo role to explore routing.
+          Welcome back. Enter your credentials to continue.
         </p>
       </div>
 
-      <div className="flex flex-col gap-3">
-        {DEMO_ROLES.map(({ role, label }) => (
-          <button
-            key={role}
-            type="button"
-            onClick={() => handleDemoLogin(role)}
-            className="rounded-[var(--radius-md)] bg-primary px-4 py-3 text-sm font-medium text-primary-foreground shadow-[var(--shadow-sm)] transition hover:opacity-90"
+      <form onSubmit={onSubmit} className="space-y-4" noValidate>
+        <FormField label="Email" htmlFor="email" error={errors.email?.message}>
+          <Input
+            id="email"
+            type="email"
+            autoComplete="email"
+            hasError={Boolean(errors.email)}
+            placeholder="you@restaurant.com"
+            {...register('email')}
+          />
+        </FormField>
+
+        <FormField label="Password" htmlFor="password" error={errors.password?.message}>
+          <PasswordInput
+            id="password"
+            autoComplete="current-password"
+            hasError={Boolean(errors.password)}
+            placeholder="••••••••"
+            {...register('password')}
+          />
+        </FormField>
+
+        <div className="flex justify-end">
+          <Link
+            to={PATHS.auth.forgotPassword}
+            className="text-sm font-medium text-primary hover:underline"
           >
-            {label}
-          </button>
-        ))}
-      </div>
+            Forgot password?
+          </Link>
+        </div>
+
+        <Button type="submit" className="w-full" loading={submitting}>
+          Sign in
+        </Button>
+      </form>
 
       <p className="text-center text-sm text-muted-foreground">
         No account?{' '}
         <Link to={PATHS.auth.register} className="font-medium text-primary hover:underline">
-          Register
+          Create one
         </Link>
       </p>
-    </div>
+    </motion.div>
   )
 }

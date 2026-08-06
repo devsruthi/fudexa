@@ -8,14 +8,15 @@ export const PATHS = {
   notFound: '*',
 
   auth: {
-    root: '/auth',
-    login: '/auth/login',
-    register: '/auth/register',
+    login: '/login',
+    register: '/register',
+    forgotPassword: '/forgot-password',
+    resetPassword: '/reset-password',
   },
 
   customer: {
     root: '/customer',
-    home: '/customer',
+    home: '/customer/home',
     restaurants: '/customer/restaurants',
     restaurantDetail: '/customer/restaurants/:restaurantId',
     menu: '/customer/restaurants/:restaurantId/menu',
@@ -28,7 +29,7 @@ export const PATHS = {
 
   restaurant: {
     root: '/restaurant',
-    dashboard: '/restaurant',
+    dashboard: '/restaurant/dashboard',
     orders: '/restaurant/orders',
     orderDetail: '/restaurant/orders/:orderId',
     menu: '/restaurant/menu',

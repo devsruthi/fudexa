@@ -1,8 +1,17 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { AuthLayout, CustomerLayout, RestaurantLayout } from '@/components/layout'
-import { LoginPage, ProtectedRoute, RegisterPage, RoleGuard } from '@/features/auth'
-import { LandingPage } from '@/features/auth/pages/LandingPage'
-import { NotFoundPage, UnauthorizedPage } from '@/features/auth/pages/PublicPages'
+import {
+  ForgotPasswordPage,
+  GuestRoute,
+  LandingPage,
+  LoginPage,
+  NotFoundPage,
+  ProtectedRoute,
+  RegisterPage,
+  ResetPasswordPage,
+  RoleRoute,
+  UnauthorizedPage,
+} from '@/features/auth'
 import { CustomerHomePage } from '@/features/customer/home'
 import { CartPage } from '@/features/customer/cart'
 import { CheckoutPage } from '@/features/customer/checkout'
@@ -21,8 +30,7 @@ import { PATHS } from './paths'
 
 /**
  * Application route tree.
- * Role segments are isolated so new roles (driver, kitchen, admin) can mount
- * alongside without rewriting existing trees.
+ * Role segments are isolated so new roles can mount without rewriting existing trees.
  */
 export const appRoutes: RouteObject[] = [
   {
@@ -34,25 +42,43 @@ export const appRoutes: RouteObject[] = [
     element: <UnauthorizedPage />,
   },
   {
-    path: PATHS.auth.root,
+    element: <GuestRoute />,
+    children: [
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: PATHS.auth.login, element: <LoginPage /> },
+          { path: PATHS.auth.register, element: <RegisterPage /> },
+          { path: PATHS.auth.forgotPassword, element: <ForgotPasswordPage /> },
+        ],
+      },
+    ],
+  },
+  {
     element: <AuthLayout />,
+    children: [{ path: PATHS.auth.resetPassword, element: <ResetPasswordPage /> }],
+  },
+  {
+    // Legacy /auth/* redirects
+    path: '/auth',
     children: [
       { index: true, element: <Navigate to={PATHS.auth.login} replace /> },
-      { path: 'login', element: <LoginPage /> },
-      { path: 'register', element: <RegisterPage /> },
+      { path: 'login', element: <Navigate to={PATHS.auth.login} replace /> },
+      { path: 'register', element: <Navigate to={PATHS.auth.register} replace /> },
     ],
   },
   {
     element: <ProtectedRoute />,
     children: [
       {
-        element: <RoleGuard allowedRoles={['customer']} />,
+        element: <RoleRoute allowedRoles={['customer']} />,
         children: [
           {
             path: PATHS.customer.root,
             element: <CustomerLayout />,
             children: [
-              { index: true, element: <CustomerHomePage /> },
+              { index: true, element: <Navigate to={PATHS.customer.home} replace /> },
+              { path: 'home', element: <CustomerHomePage /> },
               { path: 'restaurants', element: <RestaurantsPage /> },
               { path: 'restaurants/:restaurantId', element: <RestaurantDetailPage /> },
               { path: 'restaurants/:restaurantId/menu', element: <MenuPage /> },
@@ -66,13 +92,14 @@ export const appRoutes: RouteObject[] = [
         ],
       },
       {
-        element: <RoleGuard allowedRoles={['restaurant']} />,
+        element: <RoleRoute allowedRoles={['restaurant']} />,
         children: [
           {
             path: PATHS.restaurant.root,
             element: <RestaurantLayout />,
             children: [
-              { index: true, element: <DashboardPage /> },
+              { index: true, element: <Navigate to={PATHS.restaurant.dashboard} replace /> },
+              { path: 'dashboard', element: <DashboardPage /> },
               { path: 'orders', element: <RestaurantOrdersPage /> },
               { path: 'orders/:orderId', element: <RestaurantOrderDetailPage /> },
               { path: 'menu', element: <RestaurantMenuPage /> },
@@ -84,10 +111,6 @@ export const appRoutes: RouteObject[] = [
           },
         ],
       },
-      // Future role mounts:
-      // { element: <RoleGuard allowedRoles={['driver']} />, children: [...] },
-      // { element: <RoleGuard allowedRoles={['kitchen']} />, children: [...] },
-      // { element: <RoleGuard allowedRoles={['admin']} />, children: [...] },
     ],
   },
   {

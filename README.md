@@ -6,16 +6,30 @@ Real-time restaurant operations platform for customers and merchants.
 
 - React 19 · TypeScript · Vite
 - React Router v7 · TanStack Query · Zustand (UI only)
-- Tailwind CSS · Framer Motion · Lucide React
-- React Hook Form · Zod · Supabase
+- Tailwind CSS · Framer Motion · Lucide React · Sonner
+- React Hook Form · Zod · Supabase Auth
 
 ## Getting started
 
 ```bash
 cp .env.example .env
+# Fill VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
+# Run supabase/migrations/001_profiles.sql in the Supabase SQL Editor
+# Add redirect URLs in Supabase Auth: /login and /reset-password
 npm install
 npm run dev
 ```
+
+## Auth
+
+| Route | Purpose |
+| --- | --- |
+| `/login` | Email/password sign in |
+| `/register` | Sign up with customer or restaurant role |
+| `/forgot-password` | Request reset email |
+| `/reset-password` | Set new password from email link |
+
+After login: **customer** → `/customer/home`, **restaurant** → `/restaurant/dashboard`.
 
 ## Scripts
 
@@ -27,9 +41,3 @@ npm run dev
 | `npm run lint` | ESLint |
 | `npm run format` | Prettier |
 | `npm run typecheck` | TypeScript project references check |
-
-## Architecture
-
-Feature-based layout under `src/`. Routing is role-based via `ProtectedRoute` + `RoleGuard` and a central `ROLE_HOME_PATHS` map — extendable for driver, kitchen, and admin without hardcoding redirects in UI.
-
-Demo sign-in on `/auth/login` simulates customer and restaurant sessions for exploring the scaffold.
