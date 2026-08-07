@@ -24,13 +24,13 @@ const tooltipStyle = {
 }
 
 const COLORS = [
-  'rgb(14 165 233)',
-  'rgb(34 197 94)',
-  'rgb(245 158 11)',
-  'rgb(239 68 68)',
-  'rgb(100 116 139)',
-  'rgb(56 189 248)',
-  'rgb(168 85 247)',
+  'rgb(6 95 70)',
+  'rgb(180 139 74)',
+  'rgb(22 163 74)',
+  'rgb(217 119 6)',
+  'rgb(87 83 78)',
+  'rgb(52 211 153)',
+  'rgb(212 175 105)',
 ]
 
 function ChartShell({
@@ -240,8 +240,8 @@ export function PeakHeatmap({
               title={`${h.name}: ${h.value} orders`}
               className="flex aspect-square flex-col items-center justify-center rounded-md text-[9px] font-medium"
               style={{
-                background: `rgb(14 165 233 / ${0.08 + intensity * 0.7})`,
-                color: intensity > 0.55 ? 'white' : undefined,
+                background: `rgb(var(--color-primary) / ${0.08 + intensity * 0.72})`,
+                color: intensity > 0.55 ? 'rgb(var(--color-primary-foreground))' : undefined,
               }}
             >
               <span>{h.name.slice(0, 2)}</span>
