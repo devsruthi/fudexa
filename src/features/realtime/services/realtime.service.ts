@@ -18,6 +18,8 @@ class RealtimeService {
   private status: RealtimeConnectionStatus = 'idle'
   private statusListeners = new Set<StatusListener>()
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null
+  /** Channels we are intentionally tearing down — ignore their CLOSED callbacks. */
+  private intentionalClose = new Set<string>()
 
   getStatus(): RealtimeConnectionStatus {
     return this.status
@@ -35,6 +37,13 @@ class RealtimeService {
     if (this.status === next) return
     this.status = next
     for (const listener of this.statusListeners) listener(next)
+  }
+
+  private removeChannelQuietly(key: string, channel: RealtimeChannel) {
+    this.intentionalClose.add(key)
+    void supabase.removeChannel(channel).finally(() => {
+      this.intentionalClose.delete(key)
+    })
   }
 
   subscribe(
@@ -83,10 +92,12 @@ class RealtimeService {
           this.setStatus('disconnected')
           this.scheduleReconnect()
         } else if (status === 'CLOSED') {
-          if (this.channels.size > 0) {
+          // Ignore closes from our own unsubscribe / reconnect teardown
+          if (this.intentionalClose.has(config.key)) return
+          if (this.channels.has(config.key)) {
             this.setStatus('disconnected')
             this.scheduleReconnect()
-          } else {
+          } else if (this.channels.size === 0) {
             this.setStatus('idle')
           }
         }
@@ -110,9 +121,15 @@ class RealtimeService {
     managed.handlers.delete(handler)
     managed.refs -= 1
     if (managed.refs <= 0 || managed.handlers.size === 0) {
-      void supabase.removeChannel(managed.channel)
       this.channels.delete(key)
-      if (this.channels.size === 0) this.setStatus('idle')
+      this.removeChannelQuietly(key, managed.channel)
+      if (this.channels.size === 0) {
+        if (this.reconnectTimer) {
+          clearTimeout(this.reconnectTimer)
+          this.reconnectTimer = null
+        }
+        this.setStatus('idle')
+      }
     }
   }
 
@@ -121,18 +138,23 @@ class RealtimeService {
     this.setStatus('reconnecting')
     const snapshot = [...this.channels.values()]
     for (const managed of snapshot) {
-      void supabase.removeChannel(managed.channel)
       this.channels.delete(managed.key)
+      this.removeChannelQuietly(managed.key, managed.channel)
       const handlers = [...managed.handlers]
       for (const handler of handlers) {
         this.subscribe(managed.config, handler)
       }
     }
+    if (this.channels.size === 0) this.setStatus('idle')
   }
 
   unsubscribeAll(): void {
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer)
+      this.reconnectTimer = null
+    }
     for (const managed of this.channels.values()) {
-      void supabase.removeChannel(managed.channel)
+      this.removeChannelQuietly(managed.key, managed.channel)
     }
     this.channels.clear()
     this.setStatus('idle')
@@ -143,6 +165,7 @@ class RealtimeService {
     this.reconnectTimer = setTimeout(() => {
       this.reconnectTimer = null
       if (typeof navigator !== 'undefined' && !navigator.onLine) return
+      if (this.channels.size === 0) return
       void this.reconnect()
     }, 2500)
   }

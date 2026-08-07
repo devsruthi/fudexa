@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { WifiOff, RefreshCw } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { RealtimeConnectionStatus } from '@/features/realtime/events'
@@ -5,6 +6,9 @@ import { reconnectRealtime } from '@/features/realtime/services'
 import { useRealtimeStore } from '@/features/realtime/store/realtime.store'
 import { Button } from '@/components/ui'
 import { cn } from '@/utils'
+
+/** Avoid flashing the banner during brief Strict Mode remounts / HMR. */
+const BANNER_GRACE_MS = 3000
 
 interface ConnectionBannerProps {
   isOnline: boolean
@@ -14,7 +18,18 @@ interface ConnectionBannerProps {
 export function ConnectionBanner({ isOnline, status }: ConnectionBannerProps) {
   const pending = useRealtimeStore((s) => s.pendingMutations)
   const showOffline = !isOnline
-  const showReconnecting = isOnline && (status === 'reconnecting' || status === 'disconnected')
+  const unhealthy =
+    isOnline && (status === 'reconnecting' || status === 'disconnected')
+  const [showReconnecting, setShowReconnecting] = useState(false)
+
+  useEffect(() => {
+    if (!unhealthy) {
+      setShowReconnecting(false)
+      return
+    }
+    const timer = window.setTimeout(() => setShowReconnecting(true), BANNER_GRACE_MS)
+    return () => window.clearTimeout(timer)
+  }, [unhealthy])
 
   return (
     <AnimatePresence>
