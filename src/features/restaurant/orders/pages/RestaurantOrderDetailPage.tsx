@@ -75,7 +75,14 @@ export function RestaurantOrderDetailPage() {
                     : 'primary'
               }
               loading={updateStatus.isPending}
-              onClick={() => updateStatus.mutate({ orderId: data.id, status: action.next })}
+              onClick={() =>
+                updateStatus.mutate({
+                  orderId: data.id,
+                  status: action.next,
+                  expectedUpdatedAt: data.updated_at,
+                  expectedVersion: data.version,
+                })
+              }
             >
               {action.label}
             </Button>

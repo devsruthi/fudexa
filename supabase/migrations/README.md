@@ -17,6 +17,7 @@ In the Supabase Dashboard → **SQL Editor**, run each file top-to-bottom:
 9. `009_seed_data.sql` (optional demo data)
 10. `010_grants.sql`
 11. `011_restaurant_dashboard_extensions.sql` (merchant dashboard: settings fields, review replies, order status events, inventory movements)
+12. `012_realtime_ops.sql` (order `version` for concurrency, publish reviews + restaurants to realtime)
 
 Or with the CLI (linked project):
 

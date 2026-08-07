@@ -76,7 +76,7 @@ export async function getOrders(
       `
       *,
       restaurant:restaurants(id, name, logo, city),
-      order_items(*, menu_item:menu_items(id, name, image))
+      order_items(*, menu_item:menu_items(id, name, image, preparation_time))
     `,
       { count: 'exact' },
     )
@@ -116,7 +116,7 @@ export async function getOrder(orderId: string, customerId: string): Promise<Ord
       `
       *,
       restaurant:restaurants(id, name, logo, city, phone, address),
-      order_items(*, menu_item:menu_items(id, name, image))
+      order_items(*, menu_item:menu_items(id, name, image, preparation_time))
     `,
     )
     .eq('id', orderId)
@@ -134,7 +134,7 @@ export async function getRecentOrders(customerId: string, limit = 5): Promise<Or
       `
       *,
       restaurant:restaurants(id, name, logo, city),
-      order_items(*, menu_item:menu_items(id, name, image))
+      order_items(*, menu_item:menu_items(id, name, image, preparation_time))
     `,
     )
     .eq('customer_id', customerId)

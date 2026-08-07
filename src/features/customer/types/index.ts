@@ -55,7 +55,9 @@ export interface MenuItemWithCategory extends MenuItem {
 }
 
 export interface OrderWithItems extends Order {
-  order_items: (OrderItem & { menu_item?: Pick<MenuItem, 'id' | 'name' | 'image'> | null })[]
+  order_items: (OrderItem & {
+    menu_item?: Pick<MenuItem, 'id' | 'name' | 'image' | 'preparation_time'> | null
+  })[]
   restaurant?: Pick<Restaurant, 'id' | 'name' | 'logo' | 'city'> | null
 }
 

@@ -83,8 +83,26 @@ export function OrderDetailPage() {
           <div className="mt-5">
             <OrderStatusTimeline status={data.status as OrderStatus} />
           </div>
+          <div className="sr-only" aria-live="polite" aria-atomic="true">
+            Order status is {data.status}
+          </div>
+          {(() => {
+            const times = data.order_items?.map((i) => i.menu_item?.preparation_time ?? 0) ?? []
+            const prep = Math.max(15, ...times)
+            const eta = new Date(new Date(data.created_at).getTime() + prep * 60_000)
+            if (['Completed', 'Cancelled'].includes(data.status)) return null
+            return (
+              <p className="mt-4 rounded-[var(--radius-md)] bg-primary/10 px-3 py-2 text-sm text-foreground">
+                Estimated ready around{' '}
+                <span className="font-semibold">
+                  {eta.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                </span>
+                <span className="text-muted-foreground"> (~{prep} min prep)</span>
+              </p>
+            )
+          })()}
           {data.estimated_delivery ? (
-            <p className="mt-4 rounded-[var(--radius-md)] bg-muted px-3 py-2 text-sm text-muted-foreground">
+            <p className="mt-2 rounded-[var(--radius-md)] bg-muted px-3 py-2 text-sm text-muted-foreground">
               Estimated delivery:{' '}
               <span className="font-medium text-foreground">
                 {new Date(data.estimated_delivery).toLocaleString()}

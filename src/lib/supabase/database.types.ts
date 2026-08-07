@@ -307,6 +307,7 @@ export interface Database {
           delivery_address: string
           notes: string | null
           estimated_delivery: string | null
+          version: number
           created_at: string
           updated_at: string
         }
@@ -326,6 +327,7 @@ export interface Database {
           delivery_address: string
           notes?: string | null
           estimated_delivery?: string | null
+          version?: number
           created_at?: string
           updated_at?: string
         }
@@ -345,6 +347,7 @@ export interface Database {
           delivery_address?: string
           notes?: string | null
           estimated_delivery?: string | null
+          version?: number
           created_at?: string
           updated_at?: string
         }

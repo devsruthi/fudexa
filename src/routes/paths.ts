@@ -32,6 +32,7 @@ export const PATHS = {
     dashboard: '/restaurant/dashboard',
     orders: '/restaurant/orders',
     orderDetail: '/restaurant/orders/:orderId',
+    kitchen: '/restaurant/kitchen',
     menu: '/restaurant/menu',
     menuNew: '/restaurant/menu/new',
     menuEdit: '/restaurant/menu/:itemId/edit',

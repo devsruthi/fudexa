@@ -11,11 +11,13 @@ import {
   Settings,
   Star,
   UtensilsCrossed,
+  CookingPot,
   X,
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/shared'
 import { Button } from '@/components/ui'
 import { useAuth } from '@/features/auth/hooks'
+import { NotificationCenter, RestaurantRealtimeBridge } from '@/features/realtime'
 import { useMerchantOrders } from '@/features/restaurant/hooks'
 import { PATHS } from '@/routes/paths'
 import { cn } from '@/utils'
@@ -23,6 +25,7 @@ import { cn } from '@/utils'
 const restaurantNav = [
   { to: PATHS.restaurant.dashboard, label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: PATHS.restaurant.orders, label: 'Orders', icon: ClipboardList },
+  { to: PATHS.restaurant.kitchen, label: 'Kitchen', icon: CookingPot },
   { to: PATHS.restaurant.menu, label: 'Menu', icon: UtensilsCrossed },
   { to: PATHS.restaurant.categories, label: 'Categories', icon: FolderTree },
   { to: PATHS.restaurant.inventory, label: 'Inventory', icon: Package },
@@ -35,8 +38,8 @@ const mobileNav = [
   restaurantNav[0],
   restaurantNav[1],
   restaurantNav[2],
-  restaurantNav[4],
-  restaurantNav[6],
+  restaurantNav[3],
+  restaurantNav[5],
 ] as const
 
 export function RestaurantLayout() {
@@ -89,6 +92,7 @@ export function RestaurantLayout() {
 
   return (
     <div className="flex min-h-dvh bg-background">
+      <RestaurantRealtimeBridge />
       <aside className="hidden w-60 shrink-0 border-r border-border bg-surface md:flex md:flex-col">
         <div className="flex h-14 items-center border-b border-border px-4">
           <span className="font-display text-lg font-semibold tracking-tight text-foreground">
@@ -163,6 +167,7 @@ export function RestaurantLayout() {
             <span className="font-display text-lg font-semibold md:hidden">OrderFlow</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
+            <NotificationCenter />
             <div className="md:hidden">
               <ThemeToggle />
             </div>

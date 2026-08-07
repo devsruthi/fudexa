@@ -6,6 +6,18 @@ export interface MerchantOrderFilters {
   search?: string
 }
 
+export class OrderConflictError extends Error {
+  constructor(message = 'This order was updated on another device. Refresh and try again.') {
+    super(message)
+    this.name = 'OrderConflictError'
+  }
+}
+
+export interface UpdateOrderStatusOptions {
+  expectedUpdatedAt?: string
+  expectedVersion?: number
+}
+
 export async function getOrders(
   restaurantId: string,
   filters: MerchantOrderFilters = {},
@@ -68,15 +80,25 @@ export async function updateOrderStatus(
   orderId: string,
   restaurantId: string,
   status: OrderStatus,
+  options: UpdateOrderStatusOptions = {},
 ): Promise<Order> {
-  const { data, error } = await supabase
+  let query = supabase
     .from('orders')
     .update({ status })
     .eq('id', orderId)
     .eq('restaurant_id', restaurantId)
-    .select('*')
-    .single()
+
+  if (options.expectedVersion != null) {
+    query = query.eq('version', options.expectedVersion)
+  } else if (options.expectedUpdatedAt) {
+    query = query.eq('updated_at', options.expectedUpdatedAt)
+  }
+
+  const { data, error } = await query.select('*').maybeSingle()
   if (error) throw error
+  if (!data) {
+    throw new OrderConflictError()
+  }
   return data
 }
 

@@ -128,6 +128,10 @@ export const appRoutes: RouteObject[] = [
               { path: 'dashboard', element: restaurant.dashboard() },
               { path: 'orders', element: restaurant.orders() },
               { path: 'orders/:orderId', element: restaurant.orderDetail() },
+              {
+                path: 'kitchen',
+                element: lazyPage(() => import('@/features/restaurant/kitchen'), 'KitchenPage'),
+              },
               { path: 'menu', element: restaurant.menu() },
               { path: 'menu/new', element: restaurant.menuNew() },
               { path: 'menu/:itemId/edit', element: restaurant.menuEdit() },

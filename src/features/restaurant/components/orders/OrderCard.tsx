@@ -28,7 +28,7 @@ export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
 interface OrderCardProps {
   order: OrderWithDetails
   highlight?: boolean
-  onStatusChange: (orderId: string, status: OrderStatus) => void
+  onStatusChange: (order: OrderWithDetails, status: OrderStatus) => void
   updating?: boolean
 }
 
@@ -110,7 +110,7 @@ export function OrderCard({ order, highlight, onStatusChange, updating }: OrderC
                     : 'primary'
               }
               loading={updating}
-              onClick={() => onStatusChange(order.id, action.next)}
+              onClick={() => onStatusChange(order, action.next)}
             >
               {action.label}
             </Button>

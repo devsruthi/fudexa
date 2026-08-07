@@ -108,8 +108,13 @@ export function RestaurantOrdersPage() {
                     order={order}
                     highlight={order.status === 'Pending'}
                     updating={updateStatus.isPending}
-                    onStatusChange={(id, next) =>
-                      updateStatus.mutate({ orderId: id, status: next })
+                    onStatusChange={(ord, next) =>
+                      updateStatus.mutate({
+                        orderId: ord.id,
+                        status: next,
+                        expectedUpdatedAt: ord.updated_at,
+                        expectedVersion: ord.version,
+                      })
                     }
                   />
                 ))}
@@ -125,7 +130,14 @@ export function RestaurantOrdersPage() {
               order={order}
               highlight={order.status === 'Pending'}
               updating={updateStatus.isPending}
-              onStatusChange={(id, next) => updateStatus.mutate({ orderId: id, status: next })}
+              onStatusChange={(ord, next) =>
+                updateStatus.mutate({
+                  orderId: ord.id,
+                  status: next,
+                  expectedUpdatedAt: ord.updated_at,
+                  expectedVersion: ord.version,
+                })
+              }
             />
           ))}
         </div>

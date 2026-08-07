@@ -3,6 +3,7 @@ import { LogOut, ShoppingBag } from 'lucide-react'
 import { ThemeToggle } from '@/components/shared'
 import { Button } from '@/components/ui'
 import { useAuth } from '@/features/auth/hooks'
+import { NotificationCenter } from '@/features/realtime'
 import { useCartStore } from '@/store'
 import { PATHS } from '@/routes/paths'
 import { cn } from '@/utils'
@@ -77,6 +78,7 @@ export function CustomerLayout() {
                 </span>
               ) : null}
             </Button>
+            <NotificationCenter />
             <ThemeToggle />
             <Button
               variant="ghost"
