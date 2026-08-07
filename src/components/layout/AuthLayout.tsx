@@ -5,10 +5,10 @@ import { ThemeToggle } from '@/components/shared'
 export function AuthLayout() {
   return (
     <div className="grid min-h-dvh lg:grid-cols-2">
-      <aside className="relative hidden overflow-hidden bg-foreground text-background lg:flex lg:flex-col lg:justify-between lg:p-12">
+      <aside className="relative hidden overflow-hidden bg-[rgb(28_25_23)] text-background lg:flex lg:flex-col lg:justify-between lg:p-12 dark:bg-surface">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgb(var(--color-primary)/0.45),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgb(56_189_248/0.25),_transparent_50%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgb(var(--color-primary)/0.5),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgb(var(--color-secondary)/0.35),_transparent_50%)]"
         />
         <div className="relative z-10">
           <p className="font-display text-2xl font-semibold tracking-tight">OrderFlow</p>

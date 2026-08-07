@@ -18,7 +18,9 @@ const customerNav = [
 export function CustomerLayout() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const itemCount = useCartStore((s) => s.getTotals().itemCount)
+  const itemCount = useCartStore((s) =>
+    s.items.reduce((sum, item) => sum + item.quantity, 0),
+  )
 
   const handleLogout = async () => {
     try {

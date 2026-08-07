@@ -282,8 +282,8 @@ begin
     v_owner_id,
     'Harbor Grill',
     'Coastal comfort food with wood-fired mains, seasonal sides, and house desserts.',
-    null,
-    null,
+    'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80',
+    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80',
     '128 Pier Avenue',
     'San Francisco',
     'USA',
@@ -300,6 +300,8 @@ begin
     set
       name = excluded.name,
       description = excluded.description,
+      logo = excluded.logo,
+      cover_image = excluded.cover_image,
       address = excluded.address,
       city = excluded.city,
       country = excluded.country,
@@ -328,7 +330,7 @@ begin
   for i in 1..20 loop
     v_cat := v_category_ids[((i - 1) / 4) + 1];
     insert into public.menu_items (
-      id, restaurant_id, category_id, name, description, price,
+      id, restaurant_id, category_id, name, description, price, image,
       is_available, preparation_time, calories
     )
     values (
@@ -338,6 +340,28 @@ begin
       v_menu_names[i],
       format('Chef-crafted %s from Harbor Grill.', lower(v_menu_names[i])),
       v_menu_prices[i],
+      (array[
+        'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80',
+        'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80',
+        'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80',
+        'https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=800&q=80',
+        'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80',
+        'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=800&q=80',
+        'https://images.unsplash.com/photo-1607532941433-304659e8198a?w=800&q=80',
+        'https://images.unsplash.com/photo-1573080496219-bb082ddcea63?w=800&q=80',
+        'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80',
+        'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80',
+        'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80',
+        'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80',
+        'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80',
+        'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&q=80',
+        'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=800&q=80',
+        'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&q=80',
+        'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80',
+        'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=800&q=80',
+        'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&q=80',
+        'https://images.unsplash.com/photo-1558857563-b37103387363?w=800&q=80'
+      ])[i],
       true,
       10 + ((i * 3) % 25),
       180 + (i * 35)
@@ -347,6 +371,7 @@ begin
         name = excluded.name,
         description = excluded.description,
         price = excluded.price,
+        image = excluded.image,
         category_id = excluded.category_id,
         is_available = true,
         updated_at = timezone('utc', now());

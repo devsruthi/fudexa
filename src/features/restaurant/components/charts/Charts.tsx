@@ -86,12 +86,12 @@ interface AnalyticsChartProps {
 }
 
 const PIE_COLORS = [
-  'rgb(14 165 233)',
-  'rgb(34 197 94)',
-  'rgb(245 158 11)',
-  'rgb(239 68 68)',
-  'rgb(100 116 139)',
-  'rgb(56 189 248)',
+  'rgb(6 95 70)',
+  'rgb(180 139 74)',
+  'rgb(22 163 74)',
+  'rgb(217 119 6)',
+  'rgb(87 83 78)',
+  'rgb(52 211 153)',
 ]
 
 export function AnalyticsChart({ title, data, type = 'bar', className }: AnalyticsChartProps) {
