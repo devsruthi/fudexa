@@ -690,6 +690,57 @@ export interface Database {
         }
         Relationships: []
       }
+      analytics_hourly_orders: {
+        Row: {
+          restaurant_id: string | null
+          owner_id: string | null
+          hour_of_day: number | null
+          order_count: number | null
+          completed_count: number | null
+          revenue: number | null
+        }
+        Relationships: []
+      }
+      analytics_weekday_orders: {
+        Row: {
+          restaurant_id: string | null
+          owner_id: string | null
+          weekday: number | null
+          order_count: number | null
+          completed_count: number | null
+          revenue: number | null
+        }
+        Relationships: []
+      }
+      analytics_review_stats: {
+        Row: {
+          restaurant_id: string | null
+          owner_id: string | null
+          total_reviews: number | null
+          average_rating: number | null
+          rating_1: number | null
+          rating_2: number | null
+          rating_3: number | null
+          rating_4: number | null
+          rating_5: number | null
+          replied_count: number | null
+          response_rate_pct: number | null
+        }
+        Relationships: []
+      }
+      analytics_inventory_value: {
+        Row: {
+          restaurant_id: string | null
+          owner_id: string | null
+          sku_count: number | null
+          in_stock_count: number | null
+          low_stock_count: number | null
+          out_of_stock_count: number | null
+          inventory_value: number | null
+          total_units: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       current_user_role: { Args: Record<string, never>; Returns: AppRole }
