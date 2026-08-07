@@ -8,7 +8,7 @@ import { EmptyState } from '@/features/customer/components'
 import { useCreateOrder, useProfile } from '@/features/customer/hooks'
 import { useAddressStore, useCartStore } from '@/store'
 import { useAuth } from '@/features/auth'
-import { formatCurrency, orderDetailPath } from '@/features/customer/utils'
+import { formatCurrency, orderDetailPath, calculateCartTotals } from '@/features/customer/utils'
 import { checkoutSchema, type CheckoutSchema } from '@/features/customer/utils/schemas'
 import { PATHS } from '@/routes/paths'
 import { cn } from '@/utils'
@@ -18,11 +18,13 @@ export function CheckoutPage() {
   const { user } = useAuth()
   const items = useCartStore((s) => s.items)
   const restaurantId = useCartStore((s) => s.restaurantId)
+  const discount = useCartStore((s) => s.discount)
   const clearCart = useCartStore((s) => s.clearCart)
-  const totals = useCartStore((s) => s.getTotals())
+  const totals = calculateCartTotals(items, discount)
   const createOrder = useCreateOrder()
   const profile = useProfile()
-  const addresses = useAddressStore((s) => (user ? s.getAddresses(user.id) : []))
+  const addressesByUser = useAddressStore((s) => s.addressesByUser)
+  const addresses = user ? (addressesByUser[user.id] ?? []) : []
 
   const {
     register,

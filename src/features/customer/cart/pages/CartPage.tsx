@@ -4,7 +4,7 @@ import { ShoppingBag } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { CartItemRow, EmptyState } from '@/features/customer/components'
 import { useCartStore } from '@/store'
-import { formatCurrency, restaurantDetailPath } from '@/features/customer/utils'
+import { formatCurrency, restaurantDetailPath, calculateCartTotals } from '@/features/customer/utils'
 import { PATHS } from '@/routes/paths'
 
 export function CartPage() {
@@ -12,10 +12,11 @@ export function CartPage() {
   const items = useCartStore((s) => s.items)
   const restaurantId = useCartStore((s) => s.restaurantId)
   const restaurantName = useCartStore((s) => s.restaurantName)
+  const discount = useCartStore((s) => s.discount)
   const setQuantity = useCartStore((s) => s.setQuantity)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
-  const totals = useCartStore((s) => s.getTotals())
+  const totals = calculateCartTotals(items, discount)
 
   if (items.length === 0) {
     return (
