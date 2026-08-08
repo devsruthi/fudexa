@@ -1,4 +1,4 @@
-# OrderFlow
+# Fudexa
 
 Real-time restaurant operations platform for customers and merchants.
 

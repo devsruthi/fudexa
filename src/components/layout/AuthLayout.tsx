@@ -47,7 +47,7 @@ export function AuthLayout() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="font-display text-3xl font-semibold tracking-tight">OrderFlow</p>
+            <p className="font-display text-3xl font-semibold tracking-tight">Fudexa</p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-primary-foreground/70">
               Real-time restaurant operations for merchants and diners.
             </p>
@@ -83,7 +83,7 @@ export function AuthLayout() {
             transition={{ delay: 0.55, duration: 0.5 }}
             className="text-xs text-primary-foreground/45"
           >
-            © {new Date().getFullYear()} OrderFlow
+            © {new Date().getFullYear()} Fudexa
           </motion.p>
         </div>
       </aside>
@@ -100,7 +100,7 @@ export function AuthLayout() {
           <img src={AUTH_HERO_MOBILE} alt="" className="absolute inset-0 size-full object-cover" />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgb(2_44_34_/_0.55),_rgb(2_44_34_/_0.82))]" />
           <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-5 text-primary-foreground">
-            <p className="font-display text-2xl font-semibold tracking-tight">OrderFlow</p>
+            <p className="font-display text-2xl font-semibold tracking-tight">Fudexa</p>
             <p className="mt-0.5 text-xs text-primary-foreground/70">
               Restaurant operations, in real time
             </p>

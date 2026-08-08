@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 010 — Privileges for PostgREST (anon / authenticated / service_role)
+-- Fudexa 010 — Privileges for PostgREST (anon / authenticated / service_role)
 -- =============================================================================
 
 grant usage on schema public to anon, authenticated, service_role;

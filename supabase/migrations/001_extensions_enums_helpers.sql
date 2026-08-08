@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 001 — Extensions, enums, and shared helpers
+-- Fudexa 001 — Extensions, enums, and shared helpers
 -- Execute first in the Supabase SQL Editor.
 -- =============================================================================
 

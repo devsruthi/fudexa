@@ -71,7 +71,7 @@ export function exportAnalyticsExcel(bundle: EnterpriseAnalyticsBundle): void {
 
 export function exportPdfSummary(bundle: EnterpriseAnalyticsBundle): void {
   const html = `<!DOCTYPE html>
-<html><head><meta charset="utf-8"/><title>OrderFlow Analytics</title>
+<html><head><meta charset="utf-8"/><title>Fudexa Analytics</title>
 <style>
   body{font-family:ui-sans-serif,system-ui,sans-serif;padding:32px;color:#0f172a}
   h1{font-size:24px;margin:0 0 8px} h2{font-size:16px;margin:24px 0 8px}
@@ -80,7 +80,7 @@ export function exportPdfSummary(bundle: EnterpriseAnalyticsBundle): void {
   .val{font-size:20px;font-weight:700} ul{padding-left:18px}
   @media print{body{padding:12px}}
 </style></head><body>
-  <h1>OrderFlow Analytics Summary</h1>
+  <h1>Fudexa Analytics Summary</h1>
   <p class="muted">${bundle.range.label} · ${bundle.range.from.toLocaleDateString()} – ${bundle.range.to.toLocaleDateString()}</p>
   <div class="grid">
     <div class="card"><div class="muted">Net revenue</div><div class="val">${formatCurrency(bundle.kpis.netRevenue)}</div></div>

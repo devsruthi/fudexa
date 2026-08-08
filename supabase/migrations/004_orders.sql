@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 004 — Orders and order items
+-- Fudexa 004 — Orders and order items
 -- =============================================================================
 
 create sequence if not exists public.order_number_seq

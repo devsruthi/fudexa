@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 009 — Seed data
+-- Fudexa 009 — Seed data
 -- 1 restaurant owner, 1 restaurant, 5 categories, 20 menu items,
 -- 10 customers, 25 orders (+ items), reviews, inventory, favorites, notifications
 --
@@ -498,7 +498,7 @@ begin
   values
     (
       v_owner_id,
-      'Welcome to OrderFlow',
+      'Welcome to Fudexa',
       'Your Harbor Grill workspace is ready. Review incoming orders from the dashboard.',
       'system',
       false
@@ -512,7 +512,7 @@ begin
     )
   on conflict do nothing;
 
-  raise notice 'OrderFlow seed complete. Owner: owner@harborgrill.demo / Password123!';
+  raise notice 'Fudexa seed complete. Owner: owner@harborgrill.demo / Password123!';
 end $$;
 
 -- Optional: keep seed helper for re-runs; drop if you prefer a clean public schema

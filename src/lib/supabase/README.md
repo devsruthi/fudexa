@@ -1,6 +1,6 @@
 # supabase
 
-Typed Supabase browser client and PostgreSQL migrations for OrderFlow.
+Typed Supabase browser client and PostgreSQL migrations for Fudexa.
 
 ## Client
 

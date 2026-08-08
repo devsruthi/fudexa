@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 005 — Reviews, favorites, notifications + dependent triggers
+-- Fudexa 005 — Reviews, favorites, notifications + dependent triggers
 -- =============================================================================
 
 create table if not exists public.reviews (

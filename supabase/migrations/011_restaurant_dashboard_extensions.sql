@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 011 — Restaurant dashboard extensions
+-- Fudexa 011 — Restaurant dashboard extensions
 -- Safe additive migration for settings, menu flags, review replies, status log
 -- =============================================================================
 

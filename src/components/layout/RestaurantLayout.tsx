@@ -96,7 +96,7 @@ export function RestaurantLayout() {
       <aside className="hidden w-60 shrink-0 border-r border-border bg-surface md:flex md:flex-col">
         <div className="flex h-14 items-center border-b border-border px-4">
           <span className="font-display text-lg font-semibold tracking-tight text-foreground">
-            OrderFlow
+            Fudexa
           </span>
         </div>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label="Restaurant">
@@ -135,7 +135,7 @@ export function RestaurantLayout() {
           />
           <aside className="relative z-10 flex h-full w-64 flex-col bg-surface shadow-[var(--shadow-lg)]">
             <div className="flex h-14 items-center justify-between border-b border-border px-4">
-              <span className="font-display text-lg font-semibold">OrderFlow</span>
+              <span className="font-display text-lg font-semibold">Fudexa</span>
               <Button
                 variant="ghost"
                 size="sm"
@@ -164,7 +164,7 @@ export function RestaurantLayout() {
             >
               <Menu className="size-4" />
             </Button>
-            <span className="font-display text-lg font-semibold md:hidden">OrderFlow</span>
+            <span className="font-display text-lg font-semibold md:hidden">Fudexa</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
             <NotificationCenter />
