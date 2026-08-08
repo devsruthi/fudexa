@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { Button, FormField, Input, PasswordInput } from '@/components/ui'
 import { AuthFormPanel } from '@/features/auth/components/AuthFormPanel'
 import { useAuth } from '@/features/auth/hooks'
@@ -10,12 +10,12 @@ import { loginSchema, type LoginFormValues } from '@/features/auth/schemas'
 import { PATHS } from '@/routes/paths'
 import { getHomePathForRole } from '@/routes/role-config'
 
-const fieldVariants = {
+const fieldVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.08 + i * 0.06, duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: 0.08 + i * 0.06, duration: 0.35, ease: [0.22, 1, 0.36, 1] as const },
   }),
 }
 
