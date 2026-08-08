@@ -13,7 +13,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(next)}
-      className="inline-flex items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground shadow-[var(--shadow-sm)] transition hover:bg-muted"
+      className="inline-flex h-9 items-center gap-2 rounded-full border border-border/80 bg-surface/90 px-3 text-xs font-medium text-foreground shadow-[var(--shadow-sm)] transition hover:border-primary/25 hover:bg-muted/60"
       aria-label={`Theme: ${label}. Click to switch to ${next}.`}
     >
       {theme === 'dark' ? <Moon className="size-3.5" /> : <Sun className="size-3.5" />}
