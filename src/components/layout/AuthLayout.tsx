@@ -12,7 +12,7 @@ import {
 import { ThemeToggle } from '@/components/shared'
 
 const AUTH_HERO =
-  'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=2000&q=90'
+  'https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?auto=format&fit=crop&w=2000&q=90'
 
 const AUTH_HERO_MOBILE =
   'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1200&q=85'
@@ -113,7 +113,7 @@ export function AuthLayout() {
             }}
           />
 
-          <div className="relative z-10 flex h-full flex-col justify-between px-10 py-10 pr-16 xl:px-14 xl:pr-24 xl:py-12">
+          <div className="relative z-10 flex h-full flex-col justify-between gap-8 px-10 py-10 pr-16 xl:gap-10 xl:px-14 xl:pr-24 xl:py-12">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -134,7 +134,7 @@ export function AuthLayout() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08 }}
-              className="max-w-md space-y-5"
+              className="max-w-md space-y-5 pb-2"
             >
               <h1 className="font-display text-[2.5rem] font-semibold leading-[1.12] tracking-tight text-white xl:text-[2.85rem] 2xl:text-5xl">
                 Run your <span className="text-[#FF6A00]">restaurant.</span>
@@ -143,7 +143,7 @@ export function AuthLayout() {
                 <br />
                 <span className="text-[#FFB347]">Hungry guests</span> order in.
               </h1>
-              <div className="relative max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_16px_40px_-20px_rgb(0_0_0_/_0.45)] backdrop-blur-md">
+              <div className="relative mb-2 max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_16px_40px_-20px_rgb(0_0_0_/_0.45)] backdrop-blur-md">
                 <div
                   aria-hidden
                   className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,_transparent,_#FF8A1F_40%,_#E63946_70%,_transparent)]"
@@ -174,7 +174,7 @@ export function AuthLayout() {
               </div>
             </motion.div>
 
-            <div className="space-y-8">
+            <div className="mt-2 space-y-8 pt-2">
               <motion.ul
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -221,7 +221,7 @@ export function AuthLayout() {
             ry="92"
             fill="none"
             stroke="url(#authCurveStroke)"
-            strokeWidth="3.2"
+            strokeWidth="16"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
