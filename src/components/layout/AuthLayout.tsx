@@ -1,6 +1,14 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BarChart3, ChefHat, ClipboardList, UtensilsCrossed } from 'lucide-react'
+import {
+  ArrowLeftRight,
+  BarChart3,
+  ChefHat,
+  ClipboardList,
+  Store,
+  UtensilsCrossed,
+  Utensils,
+} from 'lucide-react'
 import { ThemeToggle } from '@/components/shared'
 
 const AUTH_HERO =
@@ -9,11 +17,9 @@ const AUTH_HERO =
 const AUTH_HERO_MOBILE =
   'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1200&q=85'
 
-const ACCENT_CHILI =
-  'https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?auto=format&fit=crop&w=480&q=80'
-
-const ACCENT_HERBS =
-  'https://images.unsplash.com/photo-1628773822503-930a7eaecf80?auto=format&fit=crop&w=480&q=80'
+const ACCENT_CHILI = '/auth/chili.png'
+const ACCENT_BASIL = '/auth/basil.png'
+const ACCENT_TOMATO = '/auth/tomato.png'
 
 const features = [
   {
@@ -86,10 +92,38 @@ export function AuthLayout() {
                 Run your <span className="text-[#FF6A00]">restaurant.</span>
                 <br />
                 Delight every order.
+                <br />
+                <span className="text-[#FFB347]">Hungry guests</span> order in.
               </h1>
-              <p className="max-w-sm text-sm leading-relaxed text-white/75 xl:text-base">
-                Manage orders, menus, kitchens, and customers from one powerful platform.
-              </p>
+              <div className="relative max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_16px_40px_-20px_rgb(0_0_0_/_0.45)] backdrop-blur-md">
+                <div
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,_transparent,_#FF8A1F_40%,_#E63946_70%,_transparent)]"
+                />
+                <div className="mb-3 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FFB347]/35 bg-[#FF6A00]/15 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-[#FFD08A]">
+                    <Utensils className="size-3" aria-hidden />
+                    Customer ordering
+                  </span>
+                  <span className="inline-flex size-6 items-center justify-center rounded-full bg-white/10 text-[#FFB347]">
+                    <ArrowLeftRight className="size-3" aria-hidden />
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-white/90">
+                    <Store className="size-3" aria-hidden />
+                    Restaurant ops
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-white/85 xl:text-[0.95rem]">
+                  One platform for{' '}
+                  <span className="font-semibold text-white">both sides of the table</span>
+                  {' — '}
+                  guests order in, kitchens run smooth.
+                </p>
+                <div
+                  aria-hidden
+                  className="mt-3 h-1 w-24 rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946,_transparent)]"
+                />
+              </div>
             </motion.div>
 
             <div className="space-y-8">
@@ -144,44 +178,129 @@ export function AuthLayout() {
         </svg>
       </aside>
 
-      {/* Right form panel — full remaining width, never under the curve */}
-      <section className="relative flex min-h-dvh min-w-0 flex-1 flex-col overflow-hidden bg-[#F7F1EB]">
+      {/* Right form panel — atmospheric gradients + shapes */}
+      <section className="relative flex min-h-dvh min-w-0 flex-1 flex-col overflow-hidden bg-[#FFF4EC]">
+        {/* Base warm gradient wash */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,_rgb(255_122_0_/_0.08),_transparent_40%),radial-gradient(circle_at_20%_80%,_rgb(230_57_70_/_0.06),_transparent_45%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(155deg,_#FFF8F2_0%,_#FFE8D6_38%,_#FFD9C8_68%,_#FFEFE6_100%)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,_rgb(255_122_0_/_0.22),_transparent_50%),radial-gradient(ellipse_at_10%_90%,_rgb(230_57_70_/_0.16),_transparent_48%),radial-gradient(ellipse_at_90%_75%,_rgb(255_176_80_/_0.2),_transparent_42%)]"
         />
 
+        {/* Soft floating gradient orbs */}
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -right-20 size-[22rem] rounded-full bg-[radial-gradient(circle,_rgb(255_122_0_/_0.35)_0%,_rgb(255_122_0_/_0)_70%)] blur-2xl"
+          animate={{ y: [0, 18, 0], scale: [1, 1.06, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-28 -left-16 size-[24rem] rounded-full bg-[radial-gradient(circle,_rgb(230_57_70_/_0.28)_0%,_rgb(230_57_70_/_0)_70%)] blur-2xl"
+          animate={{ y: [0, -16, 0], x: [0, 10, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute top-1/3 left-1/2 size-56 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgb(255_200_120_/_0.35)_0%,_transparent_70%)] blur-3xl"
+          animate={{ opacity: [0.45, 0.8, 0.45] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
+        {/* Geometric rings + arcs */}
         <svg
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-0 hidden opacity-[0.12] lg:block"
-          viewBox="0 0 600 800"
+          className="pointer-events-none absolute inset-0 z-[1] size-full"
+          viewBox="0 0 800 1000"
           fill="none"
+          preserveAspectRatio="xMidYMid slice"
         >
-          <g stroke="#E85D04" strokeWidth="1.4">
-            <circle cx="480" cy="160" r="34" />
-            <path d="M480 126c10 14 10 34 0 48M458 148c18 6 30 18 34 34" />
-            <path d="M90 520c20-40 70-40 90 0 18 36-10 70-45 70s-63-34-45-70z" />
-            <path d="M135 520c0-28 8-48 20-66" />
-            <path d="M420 620c30-10 58 12 52 42-8 36-54 40-72 12-12-18-4-48 20-54z" />
-            <path d="M510 700c18-22 48-18 58 8 10 28-14 48-40 44-22-4-34-28-18-52z" />
-          </g>
+          <defs>
+            <linearGradient id="formShapeGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FF8A1F" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#E63946" stopOpacity="0.2" />
+            </linearGradient>
+            <linearGradient id="formShapeGradSoft" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#FFB347" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#FF6A00" stopOpacity="0.08" />
+            </linearGradient>
+          </defs>
+          <circle cx="700" cy="120" r="160" stroke="url(#formShapeGrad)" strokeWidth="1.5" />
+          <circle cx="700" cy="120" r="110" stroke="url(#formShapeGradSoft)" strokeWidth="1.2" />
+          <circle cx="80" cy="820" r="200" stroke="url(#formShapeGradSoft)" strokeWidth="1.4" />
+          <path
+            d="M520 40 C620 180 640 320 560 480"
+            stroke="url(#formShapeGrad)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+          <path
+            d="M40 200 C180 160 260 240 220 360 C180 480 60 520 -20 460"
+            stroke="url(#formShapeGradSoft)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M640 640 C720 700 760 800 700 920"
+            stroke="url(#formShapeGrad)"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+          />
+          {/* Soft filled blobs */}
+          <ellipse cx="720" cy="880" rx="140" ry="90" fill="url(#formShapeGradSoft)" opacity="0.35" />
+          <ellipse cx="60" cy="140" rx="90" ry="70" fill="url(#formShapeGrad)" opacity="0.12" />
         </svg>
 
-        <img
-          src={ACCENT_CHILI}
-          alt=""
+        {/* Transparent food accents — soft shapes + cutout PNGs */}
+        <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-6 -right-1 z-[1] hidden w-36 rotate-[-14deg] drop-shadow-2xl sm:block lg:w-40"
-        />
-        <img
-          src={ACCENT_HERBS}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute bottom-14 right-24 z-[1] hidden w-28 rotate-12 opacity-95 drop-shadow-xl sm:block"
-        />
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden h-56 sm:block"
+        >
+          {/* Soft organic platforms */}
+          <div className="absolute -bottom-10 -right-8 size-56 rotate-12 rounded-[2.5rem] bg-gradient-to-br from-white/90 via-white/70 to-[#FFE0C8]/80 shadow-[0_20px_50px_-24px_rgb(230_57_70_/_0.35)] backdrop-blur-sm" />
+          <div className="absolute bottom-6 right-36 size-36 -rotate-12 rounded-[2rem] bg-gradient-to-tr from-[#FFF7F0]/95 to-[#FFD8B8]/70 shadow-[0_16px_40px_-20px_rgb(255_122_0_/_0.35)]" />
+          <div className="absolute bottom-20 right-8 size-20 rotate-6 rounded-full bg-[radial-gradient(circle,_rgb(255_122_0_/_0.22),_transparent_70%)] blur-sm" />
+
+          <motion.img
+            src={ACCENT_TOMATO}
+            alt=""
+            initial={{ opacity: 0, y: 18, rotate: -8 }}
+            animate={{ opacity: 1, y: [0, -6, 0], rotate: -8 }}
+            transition={{
+              opacity: { duration: 0.55 },
+              y: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+            }}
+            className="absolute bottom-10 right-[11.5rem] w-[7.5rem] drop-shadow-[0_18px_28px_rgb(26_26_26_/_0.22)] lg:right-[13rem] lg:w-36"
+          />
+          <motion.img
+            src={ACCENT_BASIL}
+            alt=""
+            initial={{ opacity: 0, y: 14, rotate: 18 }}
+            animate={{ opacity: 1, y: [0, 5, 0], rotate: 18 }}
+            transition={{
+              opacity: { duration: 0.55, delay: 0.08 },
+              y: { duration: 9, repeat: Infinity, ease: 'easeInOut' },
+            }}
+            className="absolute bottom-[4.5rem] right-[7.5rem] w-28 drop-shadow-[0_14px_22px_rgb(26_26_26_/_0.18)] lg:w-32"
+          />
+          <motion.img
+            src={ACCENT_CHILI}
+            alt=""
+            initial={{ opacity: 0, y: 20, rotate: -18 }}
+            animate={{ opacity: 1, y: [0, -8, 0], rotate: -18 }}
+            transition={{
+              opacity: { duration: 0.6, delay: 0.12 },
+              y: { duration: 7, repeat: Infinity, ease: 'easeInOut' },
+            }}
+            className="absolute -bottom-1 right-2 w-40 drop-shadow-[0_20px_32px_rgb(26_26_26_/_0.28)] lg:w-48"
+          />
+        </div>
 
         {/* Mobile hero */}
-        <div className="relative h-44 overflow-hidden lg:hidden">
+        <div className="relative z-[3] h-44 overflow-hidden lg:hidden">
           <img src={AUTH_HERO_MOBILE} alt="" className="absolute inset-0 size-full object-cover" />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgb(12_8_8_/_0.4),_rgb(12_8_8_/_0.88))]" />
           <div className="relative z-10 flex h-full flex-col items-start justify-end gap-2 px-5 pb-5">
