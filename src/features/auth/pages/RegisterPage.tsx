@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Store, UserRound } from 'lucide-react'
 import { Button, FormField, Input, PasswordInput } from '@/components/ui'
+import { AuthFormPanel } from '@/features/auth/components/AuthFormPanel'
 import { useAuth } from '@/features/auth/hooks'
 import { registerSchema, type RegisterFormValues } from '@/features/auth/schemas'
 import { PATHS } from '@/routes/paths'
@@ -62,14 +63,18 @@ export function RegisterPage() {
   })
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="space-y-8"
-    >
+    <AuthFormPanel>
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="space-y-8"
+      >
       <div className="space-y-2">
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">
+        <p className="text-xs font-semibold tracking-[0.18em] text-secondary uppercase">
+          Get started
+        </p>
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           Create account
         </h1>
         <p className="text-sm text-muted-foreground">
@@ -204,6 +209,7 @@ export function RegisterPage() {
           Sign in
         </Link>
       </p>
-    </motion.div>
+      </motion.div>
+    </AuthFormPanel>
   )
 }
