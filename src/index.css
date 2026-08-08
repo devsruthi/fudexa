@@ -1,44 +1,46 @@
 @import 'tailwindcss';
 
 /* =============================================================================
-   Fudexa Design System — Harbor Emerald
-   Deep emerald + champagne gold on warm stone surfaces.
+   Fudexa Design System — Coastal Ember
+   Deep teal-emerald + soft amber on misted sage surfaces.
    Toggle dark mode via `.dark` on <html>.
    ============================================================================= */
 
 :root {
   /* Brand */
-  --color-primary: 6 95 70;
-  --color-primary-foreground: 236 253 245;
-  --color-secondary: 180 139 74;
+  --color-primary: 4 84 72;
+  --color-primary-foreground: 240 253 250;
+  --color-secondary: 196 148 70;
   --color-secondary-foreground: 28 25 23;
 
   /* Semantic */
-  --color-success: 22 163 74;
+  --color-success: 21 128 61;
   --color-success-foreground: 255 255 255;
-  --color-warning: 217 119 6;
+  --color-warning: 202 138 4;
   --color-warning-foreground: 255 251 235;
-  --color-danger: 220 38 38;
+  --color-danger: 185 28 28;
   --color-danger-foreground: 255 255 255;
 
-  /* Surfaces — warm stone */
-  --color-background: 250 250 249;
-  --color-foreground: 28 25 23;
+  /* Surfaces — misted sage stone */
+  --color-background: 246 248 247;
+  --color-foreground: 20 28 26;
   --color-surface: 255 255 255;
-  --color-surface-foreground: 28 25 23;
-  --color-muted: 245 245 244;
-  --color-muted-foreground: 87 83 78;
-  --color-border: 231 229 228;
-  --color-ring: 6 95 70;
+  --color-surface-foreground: 20 28 26;
+  --color-muted: 237 242 240;
+  --color-muted-foreground: 78 90 86;
+  --color-border: 220 229 225;
+  --color-ring: 4 84 72;
 
   /* Shape & elevation */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 0.875rem;
-  --radius-xl: 1.125rem;
-  --shadow-sm: 0 1px 2px 0 rgb(28 25 23 / 0.04);
-  --shadow-md: 0 4px 12px -2px rgb(28 25 23 / 0.08), 0 2px 4px -2px rgb(28 25 23 / 0.04);
-  --shadow-lg: 0 16px 32px -8px rgb(28 25 23 / 0.12), 0 6px 12px -4px rgb(28 25 23 / 0.06);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.35rem;
+  --shadow-sm: 0 1px 2px 0 rgb(20 28 26 / 0.04), 0 0 0 1px rgb(4 84 72 / 0.03);
+  --shadow-md:
+    0 8px 20px -6px rgb(20 28 26 / 0.1), 0 3px 8px -3px rgb(4 84 72 / 0.08);
+  --shadow-lg:
+    0 22px 40px -12px rgb(20 28 26 / 0.14), 0 8px 16px -8px rgb(4 84 72 / 0.1);
 
   /* Typography */
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
@@ -46,30 +48,30 @@
 }
 
 .dark {
-  --color-primary: 52 211 153;
-  --color-primary-foreground: 2 44 34;
-  --color-secondary: 212 175 105;
+  --color-primary: 45 212 168;
+  --color-primary-foreground: 2 36 30;
+  --color-secondary: 232 188 110;
   --color-secondary-foreground: 28 25 23;
 
   --color-success: 74 222 128;
   --color-success-foreground: 20 83 45;
-  --color-warning: 251 191 36;
+  --color-warning: 250 204 21;
   --color-warning-foreground: 69 26 3;
   --color-danger: 248 113 113;
   --color-danger-foreground: 69 10 10;
 
-  --color-background: 12 10 9;
-  --color-foreground: 250 250 249;
-  --color-surface: 28 25 23;
-  --color-surface-foreground: 250 250 249;
-  --color-muted: 41 37 36;
-  --color-muted-foreground: 168 162 158;
-  --color-border: 68 64 60;
-  --color-ring: 52 211 153;
+  --color-background: 10 14 13;
+  --color-foreground: 240 253 250;
+  --color-surface: 18 24 22;
+  --color-surface-foreground: 240 253 250;
+  --color-muted: 28 36 33;
+  --color-muted-foreground: 156 170 164;
+  --color-border: 42 54 49;
+  --color-ring: 45 212 168;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.45);
-  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 16px 32px -8px rgb(0 0 0 / 0.55), 0 6px 12px -4px rgb(0 0 0 / 0.45);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5), 0 0 0 1px rgb(45 212 168 / 0.06);
+  --shadow-md: 0 8px 20px -6px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(45 212 168 / 0.08);
+  --shadow-lg: 0 22px 40px -12px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(45 212 168 / 0.1);
 }
 
 @theme inline {
@@ -122,6 +124,11 @@
 
   body {
     @apply m-0 min-h-dvh bg-background font-sans text-foreground antialiased;
+    background-image:
+      radial-gradient(ellipse 90% 60% at 0% -10%, rgb(var(--color-primary) / 0.07), transparent 50%),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgb(var(--color-secondary) / 0.08), transparent 45%),
+      radial-gradient(ellipse 50% 40% at 50% 100%, rgb(var(--color-primary) / 0.04), transparent 50%);
+    background-attachment: fixed;
   }
 
   #root {
@@ -129,7 +136,36 @@
   }
 
   ::selection {
-    background: rgb(var(--color-primary) / 0.2);
+    background: rgb(var(--color-primary) / 0.22);
     color: rgb(var(--color-foreground));
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .app-shell-surface {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(var(--color-surface) / 0.92) 0%,
+        rgb(var(--color-surface) / 0.86) 100%
+      );
+    backdrop-filter: blur(14px);
+  }
+
+  .text-brand-gradient {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-primary)) 0%,
+      rgb(var(--color-secondary)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }

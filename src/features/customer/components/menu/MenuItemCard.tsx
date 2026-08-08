@@ -31,7 +31,7 @@ export function MenuItemCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       className={cn(
-        'flex gap-4 rounded-[var(--radius-xl)] border border-border bg-surface p-3 shadow-[var(--shadow-sm)]',
+        'flex gap-4 rounded-[var(--radius-xl)] border border-border/80 bg-surface/95 p-3.5 shadow-[var(--shadow-sm)] transition hover:border-primary/20 hover:shadow-[var(--shadow-md)]',
         unavailable && 'opacity-70',
         className,
       )}
@@ -40,8 +40,8 @@ export function MenuItemCard({
         {item.image ? (
           <img src={item.image} alt="" className="size-full object-cover" loading="lazy" />
         ) : (
-          <div className="flex size-full items-center justify-center">
-            <UtensilsCrossed className="size-8 text-muted-foreground" aria-hidden />
+          <div className="flex size-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgb(var(--color-primary)/0.18),_transparent_65%)]">
+            <UtensilsCrossed className="size-8 text-primary/50" aria-hidden />
           </div>
         )}
       </div>
@@ -49,12 +49,14 @@ export function MenuItemCard({
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h3 className="truncate font-medium text-foreground">{item.name}</h3>
+            <h3 className="truncate font-display text-base font-semibold text-foreground">
+              {item.name}
+            </h3>
             {item.category?.name ? (
-              <p className="text-xs text-muted-foreground">{item.category.name}</p>
+              <p className="text-xs font-medium text-primary/80">{item.category.name}</p>
             ) : null}
           </div>
-          <p className="shrink-0 font-semibold text-foreground">{formatCurrency(Number(item.price))}</p>
+          <p className="shrink-0 font-semibold text-primary">{formatCurrency(Number(item.price))}</p>
         </div>
 
         <p className="line-clamp-2 text-sm text-muted-foreground">
