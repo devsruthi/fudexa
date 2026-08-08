@@ -30,10 +30,11 @@ export function ProfilePage() {
   const toggleFavorite = useToggleFavorite()
   const fileRef = useRef<HTMLInputElement>(null)
 
-  const addresses = useAddressStore((s) => (user ? s.getAddresses(user.id) : []))
+  const addressesByUser = useAddressStore((s) => s.addressesByUser)
   const addAddress = useAddressStore((s) => s.addAddress)
   const removeAddress = useAddressStore((s) => s.removeAddress)
   const setDefault = useAddressStore((s) => s.setDefault)
+  const addresses = user ? (addressesByUser[user.id] ?? []) : []
 
   const profileForm = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema),
@@ -45,14 +46,16 @@ export function ProfilePage() {
     defaultValues: { label: '', address: '' },
   })
 
+  const { reset: resetProfileForm } = profileForm
+
   useEffect(() => {
     if (profile.data) {
-      profileForm.reset({
+      resetProfileForm({
         fullName: profile.data.full_name,
         phone: profile.data.phone ?? '',
       })
     }
-  }, [profile.data, profileForm])
+  }, [profile.data, resetProfileForm])
 
   if (profile.isLoading) {
     return (
