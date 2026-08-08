@@ -87,11 +87,21 @@ export function RegisterPage() {
           name="role"
           control={control}
           render={({ field }) => (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2.5">
               {(
                 [
-                  { value: 'customer' as const, label: 'Customer', icon: UserRound },
-                  { value: 'restaurant' as const, label: 'Restaurant', icon: Store },
+                  {
+                    value: 'customer' as const,
+                    label: 'Customer',
+                    hint: 'Order & track',
+                    icon: UserRound,
+                  },
+                  {
+                    value: 'restaurant' as const,
+                    label: 'Restaurant',
+                    hint: 'Run the floor',
+                    icon: Store,
+                  },
                 ] as const
               ).map((option) => {
                 const Icon = option.icon
@@ -102,16 +112,30 @@ export function RegisterPage() {
                     type="button"
                     onClick={() => field.onChange(option.value)}
                     className={cn(
-                      'flex flex-col items-start gap-2 rounded-[var(--radius-lg)] border p-4 text-left transition',
+                      'flex h-12 items-center gap-2.5 rounded-full border px-3.5 text-left transition',
                       selected
-                        ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                        : 'border-border bg-surface hover:bg-muted',
+                        ? 'border-primary bg-primary/8 shadow-[0_0_0_3px_rgb(230_57_70_/_0.12)]'
+                        : 'border-border/80 bg-muted/40 hover:border-primary/30 hover:bg-muted/70',
                     )}
                   >
-                    <Icon
-                      className={cn('size-5', selected ? 'text-primary' : 'text-muted-foreground')}
-                    />
-                    <span className="text-sm font-medium text-foreground">{option.label}</span>
+                    <span
+                      className={cn(
+                        'inline-flex size-8 shrink-0 items-center justify-center rounded-full',
+                        selected
+                          ? 'bg-brand-gradient text-primary-foreground'
+                          : 'bg-surface text-muted-foreground',
+                      )}
+                    >
+                      <Icon className="size-3.5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold leading-tight text-foreground">
+                        {option.label}
+                      </span>
+                      <span className="block text-[11px] leading-tight text-muted-foreground">
+                        {option.hint}
+                      </span>
+                    </span>
                   </button>
                 )
               })}
