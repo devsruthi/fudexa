@@ -91,7 +91,7 @@ export function RestaurantLayout() {
   )
 
   return (
-    <div className="flex min-h-dvh">
+    <div className="flex min-h-dvh bg-page-gradient">
       <RestaurantRealtimeBridge />
       <aside className="hidden w-64 shrink-0 border-r border-border/70 app-shell-surface md:flex md:flex-col">
         <div className="flex h-16 items-center border-b border-border/70 px-5">

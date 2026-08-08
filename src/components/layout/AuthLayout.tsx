@@ -26,11 +26,11 @@ export function AuthLayout() {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(160deg,_rgb(2_44_34_/_0.88)_0%,_rgb(6_78_59_/_0.55)_42%,_rgb(28_25_23_/_0.75)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(160deg,_rgb(120_20_28_/_0.9)_0%,_rgb(230_57_70_/_0.55)_42%,_rgb(40_18_12_/_0.78)_100%)]"
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgb(180_139_74_/_0.28),_transparent_55%)]"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgb(255_122_0_/_0.35),_transparent_55%)]"
         />
         <div
           aria-hidden
@@ -60,9 +60,11 @@ export function AuthLayout() {
             className="max-w-lg space-y-4"
           >
             <p className="font-display text-4xl font-semibold leading-[1.1] tracking-tight xl:text-5xl">
-              Run the floor.
+              Order faster.
               <br />
-              <span className="text-secondary">Feed the city.</span>
+              <span className="bg-[linear-gradient(90deg,_#FF7A00,_#FFD08A)] bg-clip-text text-transparent">
+                Deliver hunger.
+              </span>
             </p>
             <p className="max-w-md text-sm leading-relaxed text-primary-foreground/70">
               Accept orders, manage menus, and keep kitchens in sync — one calm console for every
@@ -89,21 +91,19 @@ export function AuthLayout() {
       </aside>
 
       {/* Form panel */}
-      <section className="relative flex flex-col overflow-hidden bg-background">
+      <section className="relative flex flex-col overflow-hidden bg-page-gradient">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,_rgb(var(--color-muted))_0%,_rgb(var(--color-background))_40%,_rgb(var(--color-primary)/0.06)_100%),radial-gradient(ellipse_90%_60%_at_110%_-10%,_rgb(var(--color-primary)/0.22),_transparent_50%),radial-gradient(ellipse_70%_50%_at_-10%_110%,_rgb(var(--color-secondary)/0.18),_transparent_48%),radial-gradient(circle_at_70%_55%,_rgb(var(--color-primary)/0.1),_transparent_42%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_110%_-10%,_rgb(230_57_70_/_0.18),_transparent_50%),radial-gradient(ellipse_70%_50%_at_-10%_110%,_rgb(255_122_0_/_0.2),_transparent_48%),radial-gradient(circle_at_70%_55%,_rgb(230_57_70_/_0.1),_transparent_42%)]"
         />
 
         {/* Mobile brand strip */}
         <div className="relative h-36 overflow-hidden lg:hidden">
           <img src={AUTH_HERO_MOBILE} alt="" className="absolute inset-0 size-full object-cover" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgb(2_44_34_/_0.55),_rgb(2_44_34_/_0.82))]" />
-          <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-5 text-primary-foreground">
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgb(230_57_70_/_0.55),_rgb(120_20_28_/_0.88))]" />
+          <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-5 text-white">
             <p className="font-display text-2xl font-semibold tracking-tight">Fudexa</p>
-            <p className="mt-0.5 text-xs text-primary-foreground/70">
-              Restaurant operations, in real time
-            </p>
+            <p className="mt-0.5 text-xs text-white/75">Order. Manage. Deliver — in real time</p>
           </div>
         </div>
 

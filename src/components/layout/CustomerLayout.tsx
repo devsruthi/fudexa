@@ -32,7 +32,7 @@ export function CustomerLayout() {
   }
 
   return (
-    <div className="relative flex min-h-dvh flex-col">
+    <div className="relative flex min-h-dvh flex-col bg-page-gradient">
       <header className="sticky top-0 z-40 border-b border-border/70 app-shell-surface">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
           <div className="flex min-w-0 items-center gap-6">

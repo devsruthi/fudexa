@@ -109,7 +109,7 @@ export function LoginPage() {
         </motion.div>
 
         <motion.div {...fieldMotion(0.26)}>
-          <Button type="submit" className="w-full" loading={submitting}>
+          <Button type="submit" className="w-full bg-brand-gradient border-0" loading={submitting}>
             Sign in
           </Button>
         </motion.div>
