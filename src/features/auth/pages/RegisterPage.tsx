@@ -71,11 +71,9 @@ export function RegisterPage() {
         className="space-y-8"
       >
       <div className="space-y-2">
-        <p className="text-xs font-semibold tracking-[0.18em] text-secondary uppercase">
-          Get started
-        </p>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Create account
+        <p className="text-sm font-semibold text-[#FF6A00]">Get started! ✨</p>
+        <h1 className="font-display text-[1.85rem] font-semibold tracking-tight text-foreground sm:text-[2.05rem]">
+          Create your account
         </h1>
         <p className="text-sm text-muted-foreground">
           Choose your role and set up access in under a minute.
@@ -222,14 +220,18 @@ export function RegisterPage() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-brand-gradient border-0" loading={submitting}>
+        <Button
+          type="submit"
+          className="h-12 w-full rounded-xl border-0 bg-[linear-gradient(90deg,_#FF7A00_0%,_#E63946_100%)] text-base text-white shadow-[0_12px_28px_-10px_rgb(230_57_70_/_0.55)]"
+          loading={submitting}
+        >
           Create account
         </Button>
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
         Already have an account?{' '}
-        <Link to={PATHS.auth.login} className="font-medium text-primary hover:underline">
+        <Link to={PATHS.auth.login} className="font-semibold text-[#FF6A00] hover:text-primary">
           Sign in
         </Link>
       </p>

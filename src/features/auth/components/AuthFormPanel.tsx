@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/utils'
 
-/** Clean elevated card for auth forms. */
+/** Elevated white card for auth forms — matches Fudexa login mockup. */
 export function AuthFormPanel({
   children,
   className,
@@ -12,15 +12,11 @@ export function AuthFormPanel({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-[1.5rem] border border-border/50 bg-white px-6 py-8 shadow-[0_20px_50px_-20px_rgb(230_57_70_/_0.22),0_8px_20px_-8px_rgb(26_26_26_/_0.08)] sm:px-8 sm:py-9',
+        'relative rounded-[1.75rem] border border-black/[0.04] bg-white px-7 py-8 shadow-[0_24px_60px_-28px_rgb(26_26_26_/_0.28),0_10px_24px_-16px_rgb(26_26_26_/_0.12)] sm:px-9 sm:py-10',
         className,
       )}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-brand-gradient"
-      />
-      <div className="relative z-10">{children}</div>
+      {children}
     </div>
   )
 }
