@@ -48,10 +48,52 @@ export function AuthLayout() {
   const location = useLocation()
 
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-[#F7F1EB] lg:flex">
-      {/* Left brand panel — curve is clipped here only, never overlays the form */}
+    <div className="relative min-h-dvh overflow-hidden bg-[#FFE5D4] lg:flex">
+      {/* Left brand panel */}
       <aside className="relative hidden min-h-dvh w-[min(58%,42rem)] shrink-0 lg:block xl:w-[min(56%,46rem)]">
-        <div className="absolute inset-0 overflow-hidden [clip-path:ellipse(100%_92%_at_0%_50%)]">
+        {/* Designed wedge behind the curve — replaces flat white gap */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(160deg,_#FFF6EF_0%,_#FFE3CC_42%,_#FFC9A8_78%,_#FFB890_100%)]"
+        />
+        <svg
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-[1] size-full"
+          viewBox="0 0 400 900"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="wedgeStroke" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FF8A1F" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#E63946" stopOpacity="0.25" />
+            </linearGradient>
+            <linearGradient id="wedgeFill" x1="0.2" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FF9A3D" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#E63946" stopOpacity="0.08" />
+            </linearGradient>
+          </defs>
+          {/* Decorative arcs sitting in the cream wedge */}
+          <path
+            d="M220 40 C310 180 340 360 300 540 C270 680 210 800 140 900"
+            fill="none"
+            stroke="url(#wedgeStroke)"
+            strokeWidth="1.6"
+          />
+          <path
+            d="M250 20 C345 200 370 400 320 600 C285 760 220 860 150 920"
+            fill="none"
+            stroke="url(#wedgeStroke)"
+            strokeWidth="1"
+            opacity="0.55"
+          />
+          <circle cx="310" cy="220" r="70" fill="none" stroke="url(#wedgeStroke)" strokeWidth="1.2" />
+          <circle cx="330" cy="700" r="95" fill="url(#wedgeFill)" />
+          <circle cx="280" cy="480" r="8" fill="#FF6A00" opacity="0.35" />
+          <circle cx="340" cy="520" r="4" fill="#E63946" opacity="0.4" />
+          <circle cx="300" cy="160" r="5" fill="#FF8A1F" opacity="0.45" />
+        </svg>
+
+        <div className="absolute inset-0 z-10 overflow-hidden [clip-path:ellipse(100%_92%_at_0%_50%)]">
           <motion.img
             src={AUTH_HERO}
             alt=""
@@ -62,7 +104,13 @@ export function AuthLayout() {
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-[linear-gradient(115deg,_rgb(8_6_6_/_0.92)_0%,_rgb(20_12_10_/_0.72)_52%,_rgb(12_8_8_/_0.55)_100%)]"
+            className="absolute inset-0"
+            style={{
+              background: [
+                'linear-gradient(to right, rgba(8,5,4,0.8) 0%, rgba(14,8,6,0.55) 40%, rgba(14,8,6,0.2) 70%, rgba(14,8,6,0.05) 100%)',
+                'radial-gradient(ellipse at 25% 75%, rgba(255,100,0,0.14), transparent 55%)',
+              ].join(', '),
+            }}
           />
 
           <div className="relative z-10 flex h-full flex-col justify-between px-10 py-10 pr-16 xl:px-14 xl:pr-24 xl:py-12">
@@ -152,7 +200,7 @@ export function AuthLayout() {
           </div>
         </div>
 
-        {/* Orange edge following the same ellipse — decorative only */}
+        {/* Orange curve edge between photo and designed wedge */}
         <svg
           aria-hidden
           className="pointer-events-none absolute inset-0 z-20 size-full"
@@ -162,6 +210,7 @@ export function AuthLayout() {
           <defs>
             <linearGradient id="authCurveStroke" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#FF8A1F" />
+              <stop offset="55%" stopColor="#FF6A00" />
               <stop offset="100%" stopColor="#E63946" />
             </linearGradient>
           </defs>
@@ -172,7 +221,7 @@ export function AuthLayout() {
             ry="92"
             fill="none"
             stroke="url(#authCurveStroke)"
-            strokeWidth="0.7"
+            strokeWidth="1.15"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
@@ -330,7 +379,7 @@ export function AuthLayout() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-[26rem]"
+              className="w-full max-w-[34rem]"
             >
               <Outlet />
             </motion.div>
