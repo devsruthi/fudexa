@@ -221,7 +221,7 @@ export function AuthLayout() {
             ry="92"
             fill="none"
             stroke="url(#authCurveStroke)"
-            strokeWidth="1.15"
+            strokeWidth="3.2"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
