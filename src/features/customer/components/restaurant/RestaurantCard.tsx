@@ -33,7 +33,7 @@ export function RestaurantCard({
       whileHover={{ y: -3 }}
       transition={{ type: 'spring', stiffness: 400, damping: 28 }}
       className={cn(
-        'group relative overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface shadow-[var(--shadow-sm)] transition hover:shadow-[var(--shadow-md)]',
+        'group relative overflow-hidden rounded-[var(--radius-xl)] border border-border/80 bg-surface/95 shadow-[var(--shadow-sm)] transition hover:border-primary/25 hover:shadow-[var(--shadow-md)]',
         className,
       )}
     >
@@ -51,11 +51,17 @@ export function RestaurantCard({
               <Store className="size-12 text-primary/70" aria-hidden />
             </div>
           )}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/35 to-transparent"
+          />
           <div className="absolute left-3 top-3 flex gap-2">
             <span
               className={cn(
-                'rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide',
-                open ? 'bg-success text-success-foreground' : 'bg-muted text-muted-foreground',
+                'rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide shadow-[var(--shadow-sm)]',
+                open
+                  ? 'bg-success text-success-foreground'
+                  : 'bg-surface/90 text-muted-foreground backdrop-blur-sm',
               )}
             >
               {open ? 'Open' : 'Closed'}
@@ -63,13 +69,13 @@ export function RestaurantCard({
           </div>
         </div>
 
-        <div className="space-y-2 p-4">
+        <div className="space-y-2.5 p-4">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-display text-base font-semibold text-foreground group-hover:text-primary">
+            <h3 className="font-display text-lg font-semibold text-foreground transition group-hover:text-primary">
               {restaurant.name}
             </h3>
-            <div className="inline-flex shrink-0 items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-foreground">
-              <Star className="size-3 fill-warning text-warning" aria-hidden />
+            <div className="inline-flex shrink-0 items-center gap-1 rounded-full bg-secondary/15 px-2 py-0.5 text-xs font-semibold text-foreground">
+              <Star className="size-3 fill-secondary text-secondary" aria-hidden />
               {Number(restaurant.rating).toFixed(1)}
             </div>
           </div>

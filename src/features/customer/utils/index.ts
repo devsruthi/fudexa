@@ -79,5 +79,6 @@ export function formatOrderStatus(status: string): string {
   return status.replace(/([a-z])([A-Z])/g, '$1 $2')
 }
 
+export { downloadOrderInvoice } from './invoice'
 export { addressSchema, checkoutSchema, profileSchema } from './schemas'
 export type { AddressSchema, CheckoutSchema, ProfileSchema } from './schemas'

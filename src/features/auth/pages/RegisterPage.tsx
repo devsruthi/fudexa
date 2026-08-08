@@ -71,11 +71,9 @@ export function RegisterPage() {
         className="space-y-8"
       >
       <div className="space-y-2">
-        <p className="text-xs font-semibold tracking-[0.18em] text-secondary uppercase">
-          Get started
-        </p>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Create account
+        <p className="text-sm font-semibold text-[#FF6A00]">Get started! ✨</p>
+        <h1 className="font-display text-[1.85rem] font-semibold tracking-tight text-foreground sm:text-[2.05rem]">
+          Create your account
         </h1>
         <p className="text-sm text-muted-foreground">
           Choose your role and set up access in under a minute.
@@ -87,11 +85,21 @@ export function RegisterPage() {
           name="role"
           control={control}
           render={({ field }) => (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2.5">
               {(
                 [
-                  { value: 'customer' as const, label: 'Customer', icon: UserRound },
-                  { value: 'restaurant' as const, label: 'Restaurant', icon: Store },
+                  {
+                    value: 'customer' as const,
+                    label: 'Customer',
+                    hint: 'Order & track',
+                    icon: UserRound,
+                  },
+                  {
+                    value: 'restaurant' as const,
+                    label: 'Restaurant',
+                    hint: 'Run the floor',
+                    icon: Store,
+                  },
                 ] as const
               ).map((option) => {
                 const Icon = option.icon
@@ -102,16 +110,30 @@ export function RegisterPage() {
                     type="button"
                     onClick={() => field.onChange(option.value)}
                     className={cn(
-                      'flex flex-col items-start gap-2 rounded-[var(--radius-lg)] border p-4 text-left transition',
+                      'flex h-12 items-center gap-2.5 rounded-full border px-3.5 text-left transition',
                       selected
-                        ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                        : 'border-border bg-surface hover:bg-muted',
+                        ? 'border-primary bg-primary/8 shadow-[0_0_0_3px_rgb(230_57_70_/_0.12)]'
+                        : 'border-border/80 bg-muted/40 hover:border-primary/30 hover:bg-muted/70',
                     )}
                   >
-                    <Icon
-                      className={cn('size-5', selected ? 'text-primary' : 'text-muted-foreground')}
-                    />
-                    <span className="text-sm font-medium text-foreground">{option.label}</span>
+                    <span
+                      className={cn(
+                        'inline-flex size-8 shrink-0 items-center justify-center rounded-full',
+                        selected
+                          ? 'bg-brand-gradient text-primary-foreground'
+                          : 'bg-surface text-muted-foreground',
+                      )}
+                    >
+                      <Icon className="size-3.5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold leading-tight text-foreground">
+                        {option.label}
+                      </span>
+                      <span className="block text-[11px] leading-tight text-muted-foreground">
+                        {option.hint}
+                      </span>
+                    </span>
                   </button>
                 )
               })}
@@ -129,7 +151,7 @@ export function RegisterPage() {
             id="fullName"
             autoComplete="name"
             hasError={Boolean(errors.fullName)}
-            placeholder="Alex Morgan"
+            placeholder=""
             {...register('fullName')}
           />
         </FormField>
@@ -150,7 +172,7 @@ export function RegisterPage() {
                 <Input
                   id="restaurantName"
                   hasError={Boolean(errors.restaurantName)}
-                  placeholder="Harbor Grill"
+                  placeholder=""
                   {...register('restaurantName')}
                 />
               </FormField>
@@ -164,7 +186,7 @@ export function RegisterPage() {
             type="email"
             autoComplete="email"
             hasError={Boolean(errors.email)}
-            placeholder="you@restaurant.com"
+            placeholder=""
             {...register('email')}
           />
         </FormField>
@@ -179,7 +201,7 @@ export function RegisterPage() {
             id="password"
             autoComplete="new-password"
             hasError={Boolean(errors.password)}
-            placeholder="••••••••"
+            placeholder=""
             {...register('password')}
           />
         </FormField>
@@ -193,19 +215,23 @@ export function RegisterPage() {
             id="confirmPassword"
             autoComplete="new-password"
             hasError={Boolean(errors.confirmPassword)}
-            placeholder="••••••••"
+            placeholder=""
             {...register('confirmPassword')}
           />
         </FormField>
 
-        <Button type="submit" className="w-full" loading={submitting}>
+        <Button
+          type="submit"
+          className="h-12 w-full rounded-xl border-0 bg-[linear-gradient(90deg,_#FF7A00_0%,_#E63946_100%)] text-base text-white shadow-[0_12px_28px_-10px_rgb(230_57_70_/_0.55)]"
+          loading={submitting}
+        >
           Create account
         </Button>
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
         Already have an account?{' '}
-        <Link to={PATHS.auth.login} className="font-medium text-primary hover:underline">
+        <Link to={PATHS.auth.login} className="font-semibold text-[#FF6A00] hover:text-primary">
           Sign in
         </Link>
       </p>

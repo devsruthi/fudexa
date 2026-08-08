@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/utils'
 
-/** Soft gradient atmosphere behind auth forms (sign-in / sign-up). */
+/** Elevated auth card — light glass / dark surface aware. */
 export function AuthFormPanel({
   children,
   className,
@@ -10,25 +10,28 @@ export function AuthFormPanel({
   className?: string
 }) {
   return (
-    <div
-      className={cn(
-        'relative overflow-hidden rounded-[var(--radius-xl)] px-5 py-7 sm:px-8 sm:py-9',
-        className,
-      )}
-    >
+    <div className="relative">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(155deg,_rgb(var(--color-primary)/0.12)_0%,_rgb(var(--color-surface)/0.92)_38%,_rgb(var(--color-secondary)/0.1)_100%),radial-gradient(ellipse_at_top_right,_rgb(var(--color-primary)/0.16),_transparent_55%),radial-gradient(ellipse_at_bottom_left,_rgb(var(--color-secondary)/0.14),_transparent_50%)]"
+        className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-[linear-gradient(135deg,_rgb(255_122_0_/_0.35),_rgb(230_57_70_/_0.22),_rgb(255_176_80_/_0.28))] opacity-80 blur-xl dark:bg-[linear-gradient(135deg,_rgb(255_122_0_/_0.28),_rgb(230_57_70_/_0.2),_rgb(251_146_60_/_0.18))] dark:opacity-70"
       />
       <div
-        aria-hidden
-        className="pointer-events-none absolute -right-16 -top-20 size-56 rounded-full bg-primary/10 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-24 -left-16 size-64 rounded-full bg-secondary/15 blur-3xl"
-      />
-      <div className="relative z-10">{children}</div>
+        className={cn(
+          'relative overflow-hidden rounded-[1.75rem] border border-border/80 bg-surface/95 px-7 py-8 text-foreground shadow-[0_28px_64px_-28px_rgb(230_57_70_/_0.28),0_14px_32px_-18px_rgb(26_26_26_/_0.14)] backdrop-blur-md sm:px-9 sm:py-10',
+          'dark:border-border dark:bg-surface/95 dark:shadow-[0_28px_64px_-28px_rgb(0_0_0_/_0.65),0_0_0_1px_rgb(248_113_113_/_0.08)]',
+          className,
+        )}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,_#FF8A1F_0%,_#E63946_55%,_#FFB347_100%)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 right-0 size-40 rounded-full bg-[radial-gradient(circle,_rgb(255_122_0_/_0.12),_transparent_70%)] dark:bg-[radial-gradient(circle,_rgb(255_122_0_/_0.18),_transparent_70%)]"
+        />
+        <div className="relative z-10">{children}</div>
+      </div>
     </div>
   )
 }

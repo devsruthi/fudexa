@@ -81,7 +81,11 @@ export function ForgotPasswordPage() {
               />
             </FormField>
 
-            <Button type="submit" className="w-full" loading={submitting}>
+            <Button
+              type="submit"
+              className="h-12 w-full rounded-xl border-0 bg-[linear-gradient(90deg,_#FF7A00_0%,_#E63946_100%)] text-base text-white shadow-[0_12px_28px_-10px_rgb(230_57_70_/_0.55)]"
+              loading={submitting}
+            >
               Send reset link
             </Button>
           </form>

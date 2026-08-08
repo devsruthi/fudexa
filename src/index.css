@@ -1,44 +1,47 @@
 @import 'tailwindcss';
 
 /* =============================================================================
-   Fudexa Design System — Harbor Emerald
-   Deep emerald + champagne gold on warm stone surfaces.
+   Fudexa Design System — Hunger Pulse
+   Primary red (#E63946) + energy orange (#FF7A00) on soft cream (#FFF5F2).
+   Inspired by fast ordering / delivery apps.
    Toggle dark mode via `.dark` on <html>.
    ============================================================================= */
 
 :root {
   /* Brand */
-  --color-primary: 6 95 70;
-  --color-primary-foreground: 236 253 245;
-  --color-secondary: 180 139 74;
-  --color-secondary-foreground: 28 25 23;
+  --color-primary: 230 57 70;
+  --color-primary-foreground: 255 255 255;
+  --color-secondary: 255 122 0;
+  --color-secondary-foreground: 26 26 26;
 
   /* Semantic */
   --color-success: 22 163 74;
   --color-success-foreground: 255 255 255;
-  --color-warning: 217 119 6;
-  --color-warning-foreground: 255 251 235;
-  --color-danger: 220 38 38;
+  --color-warning: 255 122 0;
+  --color-warning-foreground: 255 255 255;
+  --color-danger: 190 24 48;
   --color-danger-foreground: 255 255 255;
 
-  /* Surfaces — warm stone */
-  --color-background: 250 250 249;
-  --color-foreground: 28 25 23;
+  /* Surfaces — soft cream */
+  --color-background: 255 245 242;
+  --color-foreground: 26 26 26;
   --color-surface: 255 255 255;
-  --color-surface-foreground: 28 25 23;
-  --color-muted: 245 245 244;
-  --color-muted-foreground: 87 83 78;
-  --color-border: 231 229 228;
-  --color-ring: 6 95 70;
+  --color-surface-foreground: 26 26 26;
+  --color-muted: 255 236 230;
+  --color-muted-foreground: 92 78 74;
+  --color-border: 244 214 206;
+  --color-ring: 230 57 70;
 
   /* Shape & elevation */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 0.875rem;
-  --radius-xl: 1.125rem;
-  --shadow-sm: 0 1px 2px 0 rgb(28 25 23 / 0.04);
-  --shadow-md: 0 4px 12px -2px rgb(28 25 23 / 0.08), 0 2px 4px -2px rgb(28 25 23 / 0.04);
-  --shadow-lg: 0 16px 32px -8px rgb(28 25 23 / 0.12), 0 6px 12px -4px rgb(28 25 23 / 0.06);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.35rem;
+  --shadow-sm: 0 1px 2px 0 rgb(26 26 26 / 0.05), 0 0 0 1px rgb(230 57 70 / 0.04);
+  --shadow-md:
+    0 8px 22px -6px rgb(230 57 70 / 0.14), 0 3px 8px -3px rgb(255 122 0 / 0.1);
+  --shadow-lg:
+    0 24px 44px -14px rgb(230 57 70 / 0.18), 0 10px 18px -8px rgb(255 122 0 / 0.12);
 
   /* Typography */
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
@@ -46,30 +49,30 @@
 }
 
 .dark {
-  --color-primary: 52 211 153;
-  --color-primary-foreground: 2 44 34;
-  --color-secondary: 212 175 105;
-  --color-secondary-foreground: 28 25 23;
+  --color-primary: 248 113 113;
+  --color-primary-foreground: 40 8 12;
+  --color-secondary: 251 146 60;
+  --color-secondary-foreground: 26 26 26;
 
   --color-success: 74 222 128;
   --color-success-foreground: 20 83 45;
-  --color-warning: 251 191 36;
-  --color-warning-foreground: 69 26 3;
-  --color-danger: 248 113 113;
+  --color-warning: 251 146 60;
+  --color-warning-foreground: 40 20 5;
+  --color-danger: 252 165 165;
   --color-danger-foreground: 69 10 10;
 
-  --color-background: 12 10 9;
-  --color-foreground: 250 250 249;
-  --color-surface: 28 25 23;
-  --color-surface-foreground: 250 250 249;
-  --color-muted: 41 37 36;
-  --color-muted-foreground: 168 162 158;
-  --color-border: 68 64 60;
-  --color-ring: 52 211 153;
+  --color-background: 18 12 12;
+  --color-foreground: 255 245 242;
+  --color-surface: 28 18 18;
+  --color-surface-foreground: 255 245 242;
+  --color-muted: 42 28 28;
+  --color-muted-foreground: 196 168 160;
+  --color-border: 68 42 42;
+  --color-ring: 248 113 113;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.45);
-  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 16px 32px -8px rgb(0 0 0 / 0.55), 0 6px 12px -4px rgb(0 0 0 / 0.45);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5), 0 0 0 1px rgb(248 113 113 / 0.08);
+  --shadow-md: 0 8px 22px -6px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 122 0 / 0.1);
+  --shadow-lg: 0 24px 44px -14px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(230 57 70 / 0.12);
 }
 
 @theme inline {
@@ -122,6 +125,20 @@
 
   body {
     @apply m-0 min-h-dvh bg-background font-sans text-foreground antialiased;
+    background-image:
+      radial-gradient(ellipse 85% 55% at 0% -5%, rgb(230 57 70 / 0.14), transparent 52%),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgb(255 122 0 / 0.16), transparent 48%),
+      radial-gradient(ellipse 60% 45% at 50% 110%, rgb(230 57 70 / 0.08), transparent 50%),
+      linear-gradient(180deg, rgb(255 245 242) 0%, rgb(255 238 232) 100%);
+    background-attachment: fixed;
+  }
+
+  html.dark body {
+    background-image:
+      radial-gradient(ellipse 85% 55% at 0% -5%, rgb(230 57 70 / 0.22), transparent 52%),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgb(255 122 0 / 0.16), transparent 48%),
+      radial-gradient(ellipse 60% 45% at 50% 110%, rgb(230 57 70 / 0.12), transparent 50%),
+      linear-gradient(180deg, rgb(18 12 12) 0%, rgb(28 18 18) 100%);
   }
 
   #root {
@@ -131,5 +148,65 @@
   ::selection {
     background: rgb(var(--color-primary) / 0.2);
     color: rgb(var(--color-foreground));
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .app-shell-surface {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / 0.9) 0%,
+        rgb(255 245 242 / 0.86) 100%
+      );
+    backdrop-filter: blur(14px);
+  }
+
+  .dark .app-shell-surface {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(28 18 18 / 0.92) 0%,
+        rgb(18 12 12 / 0.88) 100%
+      );
+  }
+
+  .text-brand-gradient {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-primary)) 0%,
+      rgb(var(--color-secondary)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-brand-gradient {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-primary)) 0%,
+      rgb(var(--color-secondary)) 100%
+    );
+  }
+
+  .bg-page-gradient {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 10% 0%, rgb(230 57 70 / 0.12), transparent 50%),
+      radial-gradient(ellipse 70% 45% at 95% 5%, rgb(255 122 0 / 0.14), transparent 48%),
+      linear-gradient(165deg, rgb(255 245 242) 0%, rgb(255 236 228) 55%, rgb(255 245 242) 100%);
+  }
+
+  .dark .bg-page-gradient {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 10% 0%, rgb(230 57 70 / 0.18), transparent 50%),
+      radial-gradient(ellipse 70% 45% at 95% 5%, rgb(255 122 0 / 0.14), transparent 48%),
+      linear-gradient(165deg, rgb(18 12 12) 0%, rgb(28 18 18) 55%, rgb(18 12 12) 100%);
   }
 }

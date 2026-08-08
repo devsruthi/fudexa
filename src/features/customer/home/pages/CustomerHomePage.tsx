@@ -57,14 +57,18 @@ export function CustomerHomePage() {
       <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface p-6 shadow-[var(--shadow-sm)] sm:p-8"
+        className="relative overflow-hidden rounded-[var(--radius-xl)] border border-border/80 bg-surface p-6 shadow-[var(--shadow-md)] sm:p-8"
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgb(var(--color-primary)/0.18),_transparent_55%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,_rgb(230_57_70_/_0.14)_0%,_transparent_45%,_rgb(255_122_0_/_0.16)_100%),radial-gradient(ellipse_at_top_right,_rgb(230_57_70_/_0.2),_transparent_55%)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-10 -top-16 size-48 rounded-full bg-secondary/20 blur-3xl"
         />
         <div className="relative z-10 max-w-2xl space-y-4">
-          <p className="text-sm font-medium text-primary">
+          <p className="text-sm font-semibold text-brand-gradient">
             {greeting}
             {user?.fullName ? `, ${user.fullName.split(' ')[0]}` : ''}
           </p>

@@ -45,9 +45,9 @@ export function NotificationCenter() {
     <div className="relative">
       <Button
         ref={buttonRef}
-        variant="ghost"
+        variant="outline"
         size="sm"
-        className="relative"
+        className="relative rounded-full border-border/80 bg-surface/90"
         aria-label={`Notifications${unreadCount ? `, ${unreadCount} unread` : ''}`}
         aria-expanded={open}
         aria-controls={panelId}

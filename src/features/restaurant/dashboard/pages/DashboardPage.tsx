@@ -66,16 +66,20 @@ export function DashboardPage() {
   const restaurantName = restaurantQuery.data?.restaurant.name
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-4 h-64 rounded-[var(--radius-xl)] bg-[radial-gradient(ellipse_at_top,_rgb(230_57_70_/_0.12),_transparent_60%),radial-gradient(ellipse_at_top_right,_rgb(255_122_0_/_0.14),_transparent_55%)]"
+      />
       <PageHeader
         title={restaurantName ?? 'Dashboard'}
         description="Live operations overview for your restaurant."
         actions={
-          <div className="flex flex-wrap gap-2">
+          <div className="relative flex flex-wrap gap-2">
             <Button variant="outline" size="sm" onClick={() => navigate(PATHS.restaurant.orders)}>
               Live orders
             </Button>
-            <Button size="sm" onClick={() => navigate(PATHS.restaurant.menuNew)}>
+            <Button size="sm" className="bg-brand-gradient border-0" onClick={() => navigate(PATHS.restaurant.menuNew)}>
               Add menu item
             </Button>
           </div>

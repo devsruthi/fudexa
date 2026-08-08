@@ -32,7 +32,7 @@ export function DashboardCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25 }}
       className={cn(
-        'rounded-[var(--radius-xl)] border border-border bg-surface p-4 shadow-[var(--shadow-sm)]',
+        'rounded-[var(--radius-xl)] border border-border/80 bg-surface/95 p-4 shadow-[var(--shadow-sm)] transition hover:border-primary/25 hover:shadow-[var(--shadow-md)]',
         className,
       )}
     >

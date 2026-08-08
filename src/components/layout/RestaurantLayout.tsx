@@ -70,10 +70,10 @@ export function RestaurantLayout() {
             onClick={onNavigate}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-2.5 rounded-[var(--radius-md)] px-3 py-2 text-sm font-medium transition',
+                'flex items-center gap-2.5 rounded-[var(--radius-md)] px-3 py-2.5 text-sm font-medium transition',
                 isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                  ? 'bg-primary text-primary-foreground shadow-[var(--shadow-sm)]'
+                  : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground',
               )
             }
           >
@@ -91,21 +91,21 @@ export function RestaurantLayout() {
   )
 
   return (
-    <div className="flex min-h-dvh bg-background">
+    <div className="flex min-h-dvh bg-page-gradient">
       <RestaurantRealtimeBridge />
-      <aside className="hidden w-60 shrink-0 border-r border-border bg-surface md:flex md:flex-col">
-        <div className="flex h-14 items-center border-b border-border px-4">
-          <span className="font-display text-lg font-semibold tracking-tight text-foreground">
+      <aside className="hidden w-64 shrink-0 border-r border-border/70 app-shell-surface md:flex md:flex-col">
+        <div className="flex h-16 items-center border-b border-border/70 px-5">
+          <span className="font-display text-xl font-semibold tracking-tight text-brand-gradient">
             Fudexa
           </span>
         </div>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label="Restaurant">
           <NavItems />
         </nav>
-        <div className="space-y-3 border-t border-border p-3">
+        <div className="space-y-3 border-t border-border/70 p-3">
           {user ? (
-            <div className="px-1">
-              <p className="truncate text-sm font-medium text-foreground">{user.fullName}</p>
+            <div className="rounded-[var(--radius-lg)] bg-muted/70 px-3 py-2.5">
+              <p className="truncate text-sm font-semibold text-foreground">{user.fullName}</p>
               <p className="truncate text-xs text-muted-foreground">
                 {user.restaurantName || user.email}
               </p>
@@ -153,7 +153,7 @@ export function RestaurantLayout() {
       ) : null}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-4">
+        <header className="flex h-16 items-center justify-between border-b border-border/70 app-shell-surface px-4">
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
@@ -164,7 +164,9 @@ export function RestaurantLayout() {
             >
               <Menu className="size-4" />
             </Button>
-            <span className="font-display text-lg font-semibold md:hidden">Fudexa</span>
+            <span className="font-display text-lg font-semibold text-brand-gradient md:hidden">
+              Fudexa
+            </span>
           </div>
           <div className="ml-auto flex items-center gap-2">
             <NotificationCenter />
@@ -187,7 +189,7 @@ export function RestaurantLayout() {
         </main>
 
         <nav
-          className="fixed inset-x-0 bottom-0 z-30 flex border-t border-border bg-surface md:hidden"
+          className="fixed inset-x-0 bottom-0 z-30 flex border-t border-border/70 app-shell-surface md:hidden"
           aria-label="Mobile restaurant navigation"
         >
           {mobileNav.map((item) => {

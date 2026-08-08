@@ -8,14 +8,16 @@ import {
   OrderStatusTimeline,
 } from '@/features/customer/components'
 import { useOrder } from '@/features/customer/hooks'
-import { formatCurrency } from '@/features/customer/utils'
+import { downloadOrderInvoice, formatCurrency } from '@/features/customer/utils'
 import { PATHS } from '@/routes/paths'
 import type { OrderStatus } from '@/features/customer/types'
 import { toast } from 'sonner'
+import { useState } from 'react'
 
 export function OrderDetailPage() {
   const { orderId } = useParams<{ orderId: string }>()
   const order = useOrder(orderId)
+  const [downloading, setDownloading] = useState(false)
 
   if (order.isLoading) {
     return (
@@ -36,6 +38,22 @@ export function OrderDetailPage() {
   }
 
   const data = order.data
+
+  const handleDownloadInvoice = async () => {
+    setDownloading(true)
+    try {
+      await downloadOrderInvoice(data)
+      toast.success('Invoice downloaded', {
+        description: `${data.order_number} saved as PDF.`,
+      })
+    } catch {
+      toast.error('Could not download invoice', {
+        description: 'Please try again.',
+      })
+    } finally {
+      setDownloading(false)
+    }
+  }
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
@@ -66,7 +84,8 @@ export function OrderDetailPage() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => toast.message('Invoice download coming soon')}
+            loading={downloading}
+            onClick={() => void handleDownloadInvoice()}
           >
             <Download className="size-4" />
             Invoice
