@@ -1,4 +1,4 @@
-# OrderFlow database migrations
+# Fudexa database migrations
 
 Production-ready PostgreSQL schema for the multi-restaurant ordering platform.
 

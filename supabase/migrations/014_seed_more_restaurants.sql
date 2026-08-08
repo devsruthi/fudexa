@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 014 — 10 additional demo restaurants + images
+-- Fudexa 014 — 10 additional demo restaurants + images
 -- Requires: 009 (seed_auth_user helper + customers exist)
 -- Password for new owners: Password123!
 -- =============================================================================

@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 007 — Analytics views
+-- Fudexa 007 — Analytics views
 -- Restaurant owners should query these filtered by owns_restaurant / owner_id.
 -- Views run with invoker rights so RLS on base tables still applies.
 -- =============================================================================

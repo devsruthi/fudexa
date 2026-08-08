@@ -61,7 +61,7 @@ export function LandingPage() {
 
       <header className="relative z-20 mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
         <span className="font-display text-xl font-semibold tracking-tight text-foreground">
-          OrderFlow
+          Fudexa
         </span>
         <div className="flex items-center gap-3">
           <ThemeToggle />
@@ -211,7 +211,7 @@ export function LandingPage() {
 
       <footer className="relative z-10 border-t border-border/60 bg-surface/40 py-6 backdrop-blur-sm">
         <p className="text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} OrderFlow · Multi-restaurant ordering platform
+          © {new Date().getFullYear()} Fudexa · Multi-restaurant ordering platform
         </p>
       </footer>
     </div>

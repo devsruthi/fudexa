@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 013 — Enterprise analytics views
+-- Fudexa 013 — Enterprise analytics views
 -- Additional BI rollups for merchant analytics dashboard.
 -- =============================================================================
 

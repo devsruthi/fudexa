@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 003 — Restaurants, categories, menu items, inventory
+-- Fudexa 003 — Restaurants, categories, menu items, inventory
 -- =============================================================================
 
 create table if not exists public.restaurants (
@@ -343,7 +343,7 @@ begin
     select
       new.id,
       coalesce(selected_restaurant_name, 'My Restaurant'),
-      'Welcome to OrderFlow — complete your restaurant profile to go live.',
+      'Welcome to Fudexa — complete your restaurant profile to go live.',
       'Address pending',
       'City pending',
       'Country pending',

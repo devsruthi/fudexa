@@ -37,7 +37,7 @@ export function CustomerLayout() {
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4">
           <div className="flex min-w-0 items-center gap-6">
             <span className="font-display text-lg font-semibold tracking-tight text-foreground">
-              OrderFlow
+            Fudexa
             </span>
             <nav className="hidden items-center gap-1 md:flex" aria-label="Customer">
               {customerNav.map((item) => (

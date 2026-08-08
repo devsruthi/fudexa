@@ -1,5 +1,5 @@
 -- =============================================================================
--- OrderFlow 006 — Row Level Security policies
+-- Fudexa 006 — Row Level Security policies
 -- =============================================================================
 
 -- Drop existing policies for idempotent re-runs
