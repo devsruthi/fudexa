@@ -48,13 +48,13 @@ export function AuthLayout() {
   const location = useLocation()
 
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-[#FFE5D4] lg:flex">
+    <div className="relative min-h-dvh overflow-hidden bg-[#FFE5D4] dark:bg-[#1a1010] lg:flex">
       {/* Left brand panel */}
       <aside className="relative hidden min-h-dvh w-[min(58%,42rem)] shrink-0 lg:block xl:w-[min(56%,46rem)]">
         {/* Designed wedge behind the curve — replaces flat white gap */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(160deg,_#FFF6EF_0%,_#FFE3CC_42%,_#FFC9A8_78%,_#FFB890_100%)]"
+          className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(160deg,_#FFF6EF_0%,_#FFE3CC_42%,_#FFC9A8_78%,_#FFB890_100%)] dark:bg-[linear-gradient(160deg,_#221616_0%,_#2a1814_42%,_#3a1e16_78%,_#2c1410_100%)]"
         />
         <svg
           aria-hidden
@@ -228,20 +228,20 @@ export function AuthLayout() {
       </aside>
 
       {/* Right form panel — atmospheric gradients + shapes */}
-      <section className="relative flex min-h-dvh min-w-0 flex-1 flex-col overflow-hidden bg-[#FFE5D4]">
+      <section className="relative flex min-h-dvh min-w-0 flex-1 flex-col overflow-hidden bg-[#FFE5D4] dark:bg-[#1a1010]">
         {/* Base warm gradient wash — stays peach through the bottom edge */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,_#FFF7F0_0%,_#FFE8D4_32%,_#FFD2B8_62%,_#FFC4A8_82%,_#FFB898_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,_#FFF7F0_0%,_#FFE8D4_32%,_#FFD2B8_62%,_#FFC4A8_82%,_#FFB898_100%)] dark:bg-[linear-gradient(165deg,_#1a1010_0%,_#241616_35%,_#2e1a16_65%,_#3a2018_100%)]"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_8%,_rgb(255_122_0_/_0.2),_transparent_46%),radial-gradient(ellipse_at_92%_100%,_rgb(230_57_70_/_0.28),_transparent_55%),radial-gradient(ellipse_at_60%_85%,_rgb(255_140_60_/_0.35),_transparent_50%),radial-gradient(ellipse_at_8%_92%,_rgb(230_57_70_/_0.14),_transparent_45%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_8%,_rgb(255_122_0_/_0.2),_transparent_46%),radial-gradient(ellipse_at_92%_100%,_rgb(230_57_70_/_0.28),_transparent_55%),radial-gradient(ellipse_at_60%_85%,_rgb(255_140_60_/_0.35),_transparent_50%),radial-gradient(ellipse_at_8%_92%,_rgb(230_57_70_/_0.14),_transparent_45%)] dark:bg-[radial-gradient(ellipse_at_78%_8%,_rgb(255_122_0_/_0.18),_transparent_46%),radial-gradient(ellipse_at_92%_100%,_rgb(230_57_70_/_0.22),_transparent_55%),radial-gradient(ellipse_at_60%_85%,_rgb(255_140_60_/_0.16),_transparent_50%)]"
         />
         {/* Bottom-right color lock so it never falls back to white */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(to_top,_#FFB090_0%,_#FFC8A8_45%,_transparent_100%)]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(to_top,_#FFB090_0%,_#FFC8A8_45%,_transparent_100%)] dark:bg-[linear-gradient(to_top,_#3a1c16_0%,_#2a1410_45%,_transparent_100%)]"
         />
 
         {/* Soft floating gradient orbs */}
@@ -313,9 +313,9 @@ export function AuthLayout() {
           aria-hidden
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden h-56 sm:block"
         >
-          {/* Soft organic platforms — warm peach, not white */}
-          <div className="absolute -bottom-10 -right-8 size-56 rotate-12 rounded-[2.5rem] bg-gradient-to-br from-[#FFD4B8]/90 via-[#FFC09A]/75 to-[#FF9A6A]/55 shadow-[0_20px_50px_-24px_rgb(230_57_70_/_0.4)]" />
-          <div className="absolute bottom-6 right-36 size-36 -rotate-12 rounded-[2rem] bg-gradient-to-tr from-[#FFE0C8]/85 to-[#FFB080]/65 shadow-[0_16px_40px_-20px_rgb(255_122_0_/_0.4)]" />
+          {/* Soft organic platforms — warm peach (light) / ember (dark) */}
+          <div className="absolute -bottom-10 -right-8 size-56 rotate-12 rounded-[2.5rem] bg-gradient-to-br from-[#FFD4B8]/90 via-[#FFC09A]/75 to-[#FF9A6A]/55 shadow-[0_20px_50px_-24px_rgb(230_57_70_/_0.4)] dark:from-[#5a2a1c]/80 dark:via-[#4a2018]/70 dark:to-[#3a1812]/60" />
+          <div className="absolute bottom-6 right-36 size-36 -rotate-12 rounded-[2rem] bg-gradient-to-tr from-[#FFE0C8]/85 to-[#FFB080]/65 shadow-[0_16px_40px_-20px_rgb(255_122_0_/_0.4)] dark:from-[#4a2418]/80 dark:to-[#3a1a12]/65" />
           <div className="absolute bottom-20 right-8 size-24 rotate-6 rounded-full bg-[radial-gradient(circle,_rgb(255_122_0_/_0.35),_transparent_70%)] blur-md" />
 
           <motion.img

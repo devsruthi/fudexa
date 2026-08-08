@@ -151,7 +151,7 @@ export function RegisterPage() {
             id="fullName"
             autoComplete="name"
             hasError={Boolean(errors.fullName)}
-            placeholder="Alex Morgan"
+            placeholder=""
             {...register('fullName')}
           />
         </FormField>
@@ -172,7 +172,7 @@ export function RegisterPage() {
                 <Input
                   id="restaurantName"
                   hasError={Boolean(errors.restaurantName)}
-                  placeholder="Harbor Grill"
+                  placeholder=""
                   {...register('restaurantName')}
                 />
               </FormField>
@@ -186,7 +186,7 @@ export function RegisterPage() {
             type="email"
             autoComplete="email"
             hasError={Boolean(errors.email)}
-            placeholder="you@restaurant.com"
+            placeholder=""
             {...register('email')}
           />
         </FormField>
@@ -201,7 +201,7 @@ export function RegisterPage() {
             id="password"
             autoComplete="new-password"
             hasError={Boolean(errors.password)}
-            placeholder="••••••••"
+            placeholder=""
             {...register('password')}
           />
         </FormField>
@@ -215,7 +215,7 @@ export function RegisterPage() {
             id="confirmPassword"
             autoComplete="new-password"
             hasError={Boolean(errors.confirmPassword)}
-            placeholder="••••••••"
+            placeholder=""
             {...register('confirmPassword')}
           />
         </FormField>

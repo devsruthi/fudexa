@@ -89,7 +89,7 @@ export function LoginPage() {
                 type="email"
                 autoComplete="email"
                 hasError={Boolean(errors.email)}
-                placeholder="Enter your email"
+                placeholder=""
                 className="pl-10"
                 {...register('email')}
               />
@@ -108,7 +108,7 @@ export function LoginPage() {
                 id="password"
                 autoComplete="current-password"
                 hasError={Boolean(errors.password)}
-                placeholder="Enter your password"
+                placeholder=""
                 className="pl-10"
                 {...register('password')}
               />
