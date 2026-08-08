@@ -179,15 +179,20 @@ export function AuthLayout() {
       </aside>
 
       {/* Right form panel — atmospheric gradients + shapes */}
-      <section className="relative flex min-h-dvh min-w-0 flex-1 flex-col overflow-hidden bg-[#FFF4EC]">
-        {/* Base warm gradient wash */}
+      <section className="relative flex min-h-dvh min-w-0 flex-1 flex-col overflow-hidden bg-[#FFE5D4]">
+        {/* Base warm gradient wash — stays peach through the bottom edge */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(155deg,_#FFF8F2_0%,_#FFE8D6_38%,_#FFD9C8_68%,_#FFEFE6_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,_#FFF7F0_0%,_#FFE8D4_32%,_#FFD2B8_62%,_#FFC4A8_82%,_#FFB898_100%)]"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,_rgb(255_122_0_/_0.22),_transparent_50%),radial-gradient(ellipse_at_10%_90%,_rgb(230_57_70_/_0.16),_transparent_48%),radial-gradient(ellipse_at_90%_75%,_rgb(255_176_80_/_0.2),_transparent_42%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_8%,_rgb(255_122_0_/_0.2),_transparent_46%),radial-gradient(ellipse_at_92%_100%,_rgb(230_57_70_/_0.28),_transparent_55%),radial-gradient(ellipse_at_60%_85%,_rgb(255_140_60_/_0.35),_transparent_50%),radial-gradient(ellipse_at_8%_92%,_rgb(230_57_70_/_0.14),_transparent_45%)]"
+        />
+        {/* Bottom-right color lock so it never falls back to white */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(to_top,_#FFB090_0%,_#FFC8A8_45%,_transparent_100%)]"
         />
 
         {/* Soft floating gradient orbs */}
@@ -199,8 +204,8 @@ export function AuthLayout() {
         />
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute -bottom-28 -left-16 size-[24rem] rounded-full bg-[radial-gradient(circle,_rgb(230_57_70_/_0.28)_0%,_rgb(230_57_70_/_0)_70%)] blur-2xl"
-          animate={{ y: [0, -16, 0], x: [0, 10, 0] }}
+          className="pointer-events-none absolute -bottom-16 -right-10 size-[26rem] rounded-full bg-[radial-gradient(circle,_rgb(255_120_70_/_0.45)_0%,_rgb(230_57_70_/_0.2)_40%,_transparent_70%)] blur-2xl"
+          animate={{ y: [0, -14, 0], scale: [1, 1.05, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
@@ -259,10 +264,10 @@ export function AuthLayout() {
           aria-hidden
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden h-56 sm:block"
         >
-          {/* Soft organic platforms */}
-          <div className="absolute -bottom-10 -right-8 size-56 rotate-12 rounded-[2.5rem] bg-gradient-to-br from-white/90 via-white/70 to-[#FFE0C8]/80 shadow-[0_20px_50px_-24px_rgb(230_57_70_/_0.35)] backdrop-blur-sm" />
-          <div className="absolute bottom-6 right-36 size-36 -rotate-12 rounded-[2rem] bg-gradient-to-tr from-[#FFF7F0]/95 to-[#FFD8B8]/70 shadow-[0_16px_40px_-20px_rgb(255_122_0_/_0.35)]" />
-          <div className="absolute bottom-20 right-8 size-20 rotate-6 rounded-full bg-[radial-gradient(circle,_rgb(255_122_0_/_0.22),_transparent_70%)] blur-sm" />
+          {/* Soft organic platforms — warm peach, not white */}
+          <div className="absolute -bottom-10 -right-8 size-56 rotate-12 rounded-[2.5rem] bg-gradient-to-br from-[#FFD4B8]/90 via-[#FFC09A]/75 to-[#FF9A6A]/55 shadow-[0_20px_50px_-24px_rgb(230_57_70_/_0.4)]" />
+          <div className="absolute bottom-6 right-36 size-36 -rotate-12 rounded-[2rem] bg-gradient-to-tr from-[#FFE0C8]/85 to-[#FFB080]/65 shadow-[0_16px_40px_-20px_rgb(255_122_0_/_0.4)]" />
+          <div className="absolute bottom-20 right-8 size-24 rotate-6 rounded-full bg-[radial-gradient(circle,_rgb(255_122_0_/_0.35),_transparent_70%)] blur-md" />
 
           <motion.img
             src={ACCENT_TOMATO}
