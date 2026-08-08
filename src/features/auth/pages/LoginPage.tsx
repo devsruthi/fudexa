@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { motion, type Variants } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button, FormField, Input, PasswordInput } from '@/components/ui'
 import { AuthFormPanel } from '@/features/auth/components/AuthFormPanel'
 import { useAuth } from '@/features/auth/hooks'
@@ -10,14 +10,11 @@ import { loginSchema, type LoginFormValues } from '@/features/auth/schemas'
 import { PATHS } from '@/routes/paths'
 import { getHomePathForRole } from '@/routes/role-config'
 
-const fieldVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.08 + i * 0.06, duration: 0.35, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-}
+const fieldMotion = (delay: number) => ({
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.35 },
+})
 
 export function LoginPage() {
   const { login } = useAuth()
@@ -79,7 +76,7 @@ export function LoginPage() {
       </div>
 
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
-        <motion.div custom={0} variants={fieldVariants} initial="hidden" animate="show">
+        <motion.div {...fieldMotion(0.08)}>
           <FormField label="Email" htmlFor="email" error={errors.email?.message}>
             <Input
               id="email"
@@ -91,7 +88,7 @@ export function LoginPage() {
           </FormField>
         </motion.div>
 
-        <motion.div custom={1} variants={fieldVariants} initial="hidden" animate="show">
+        <motion.div {...fieldMotion(0.14)}>
           <FormField label="Password" htmlFor="password" error={errors.password?.message}>
             <PasswordInput
               id="password"
@@ -102,13 +99,7 @@ export function LoginPage() {
           </FormField>
         </motion.div>
 
-        <motion.div
-          custom={2}
-          variants={fieldVariants}
-          initial="hidden"
-          animate="show"
-          className="flex justify-end"
-        >
+        <motion.div {...fieldMotion(0.2)} className="flex justify-end">
           <Link
             to={PATHS.auth.forgotPassword}
             className="text-sm font-medium text-primary transition hover:underline"
@@ -117,7 +108,7 @@ export function LoginPage() {
           </Link>
         </motion.div>
 
-        <motion.div custom={3} variants={fieldVariants} initial="hidden" animate="show">
+        <motion.div {...fieldMotion(0.26)}>
           <Button type="submit" className="w-full" loading={submitting}>
             Sign in
           </Button>
