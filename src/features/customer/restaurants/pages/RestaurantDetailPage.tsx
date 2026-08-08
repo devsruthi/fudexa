@@ -155,8 +155,22 @@ export function RestaurantDetailPage() {
       </motion.section>
 
       {!open ? (
-        <div className="rounded-[var(--radius-lg)] border border-warning/40 bg-warning/10 px-4 py-3 text-sm text-foreground">
-          This restaurant is currently closed. You can browse the menu, but ordering is disabled.
+        <div className="flex items-center gap-4 rounded-[var(--radius-xl)] border border-primary/20 bg-[linear-gradient(135deg,_rgb(255_232_229)_0%,_rgb(255_245_242)_55%,_rgb(255_236_220)_100%)] px-4 py-3.5 shadow-[var(--shadow-sm)] sm:gap-5 sm:px-5">
+          <img
+            src="/restaurant-closed.svg"
+            alt=""
+            width={72}
+            height={72}
+            className="size-14 shrink-0 sm:size-[4.5rem]"
+          />
+          <div className="min-w-0 space-y-1">
+            <p className="font-display text-base font-semibold text-foreground sm:text-lg">
+              Restaurant closed
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              You can still browse the menu — ordering is disabled until they open again.
+            </p>
+          </div>
         </div>
       ) : null}
 
