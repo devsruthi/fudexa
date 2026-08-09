@@ -1,13 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {
   AlertTriangle,
+  ArrowUpRight,
+  CheckCircle2,
   ClipboardList,
   DollarSign,
   Package,
   Star,
   Users,
-  UtensilsCrossed,
-  CheckCircle2,
 } from 'lucide-react'
 import {
   DashboardCard,
@@ -25,14 +25,8 @@ import { Button } from '@/components/ui'
 
 export function DashboardPage() {
   const navigate = useNavigate()
-  const {
-    restaurantQuery,
-    stats,
-    recentOrders,
-    latestReviews,
-    popularCategories,
-    analyticsPreview,
-  } = useDashboardData()
+  const { restaurantQuery, stats, recentOrders, latestReviews, analyticsPreview } =
+    useDashboardData()
 
   if (restaurantQuery.isError) {
     return (
@@ -66,107 +60,116 @@ export function DashboardPage() {
   const restaurantName = restaurantQuery.data?.restaurant.name
 
   return (
-    <div className="relative space-y-6">
+    <div className="relative space-y-8">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 -top-4 h-64 rounded-[var(--radius-xl)] bg-[radial-gradient(ellipse_at_top,_rgb(230_57_70_/_0.12),_transparent_60%),radial-gradient(ellipse_at_top_right,_rgb(255_122_0_/_0.14),_transparent_55%)]"
+        className="pointer-events-none absolute inset-x-0 -top-6 h-48 bg-[radial-gradient(ellipse_at_top_left,_rgb(230_57_70_/_0.1),_transparent_55%),radial-gradient(ellipse_at_top_right,_rgb(255_122_0_/_0.1),_transparent_50%)]"
       />
+
       <PageHeader
         title={restaurantName ?? 'Dashboard'}
-        description="Live operations overview for your restaurant."
+        description="A calm view of today’s floor."
+        className="relative mb-2"
         actions={
           <div className="relative flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" onClick={() => navigate(PATHS.restaurant.orders)}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full"
+              onClick={() => navigate(PATHS.restaurant.orders)}
+            >
               Live orders
             </Button>
-            <Button size="sm" className="bg-brand-gradient border-0" onClick={() => navigate(PATHS.restaurant.menuNew)}>
+            <Button
+              size="sm"
+              className="rounded-full border-0 bg-brand-gradient"
+              onClick={() => navigate(PATHS.restaurant.menuNew)}
+            >
               Add menu item
             </Button>
           </div>
         }
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {/* Primary KPIs — only what matters today */}
+      <div className="relative grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <DashboardCard
-          title="Today's revenue"
+          title="Revenue today"
           value={formatCurrency(s.todayRevenue)}
           icon={DollarSign}
           tone="success"
         />
-        <DashboardCard title="Today's orders" value={s.todayOrders} icon={ClipboardList} />
+        <DashboardCard title="Orders today" value={s.todayOrders} icon={ClipboardList} />
         <DashboardCard
-          title="Pending orders"
+          title="Pending"
           value={s.pendingOrders}
           icon={AlertTriangle}
-          tone="warning"
+          tone={s.pendingOrders > 0 ? 'warning' : 'default'}
         />
         <DashboardCard
-          title="Completed today"
+          title="Completed"
           value={s.completedOrders}
           icon={CheckCircle2}
           tone="success"
         />
-        <DashboardCard title="Average rating" value={s.averageRating.toFixed(1)} icon={Star} />
-        <DashboardCard title="Total customers" value={s.totalCustomers} icon={Users} />
-        <DashboardCard
-          title="Best seller"
-          value={s.bestSellingItem?.name ?? '—'}
-          subtitle={s.bestSellingItem ? `${s.bestSellingItem.units} sold` : undefined}
-          icon={UtensilsCrossed}
-        />
-        <DashboardCard
-          title="Low stock alerts"
-          value={s.lowStockCount}
-          icon={Package}
-          tone={s.lowStockCount > 0 ? 'danger' : 'default'}
-        />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      {/* Compact secondary pulse */}
+      <div className="relative flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl border border-border/60 bg-surface/70 px-5 py-3.5 text-sm backdrop-blur-sm">
+        <span className="inline-flex items-center gap-2 text-muted-foreground">
+          <Star className="size-3.5 text-secondary" aria-hidden />
+          <span className="font-medium text-foreground">{s.averageRating.toFixed(1)}</span>
+          avg rating
+        </span>
+        <span className="hidden h-4 w-px bg-border sm:block" aria-hidden />
+        <span className="inline-flex items-center gap-2 text-muted-foreground">
+          <Users className="size-3.5 text-primary" aria-hidden />
+          <span className="font-medium text-foreground">{s.totalCustomers}</span>
+          customers
+        </span>
+        <span className="hidden h-4 w-px bg-border sm:block" aria-hidden />
+        <span className="inline-flex items-center gap-2 text-muted-foreground">
+          <Package className="size-3.5 text-primary" aria-hidden />
+          <span className="font-medium text-foreground">{s.lowStockCount}</span>
+          low stock
+        </span>
+        {s.bestSellingItem ? (
+          <>
+            <span className="hidden h-4 w-px bg-border sm:block" aria-hidden />
+            <span className="text-muted-foreground">
+              Best seller{' '}
+              <span className="font-medium text-foreground">{s.bestSellingItem.name}</span>
+              <span className="text-muted-foreground"> · {s.bestSellingItem.units} sold</span>
+            </span>
+          </>
+        ) : null}
+      </div>
+
+      <div className="relative grid gap-4 lg:grid-cols-2">
         <RevenueChart
-          title="Revenue (last 7 days)"
+          title="Revenue · 7 days"
           data={analyticsPreview.data?.revenueSeries ?? []}
         />
-        <OrdersChart
-          title="Orders (last 7 days)"
-          data={analyticsPreview.data?.ordersSeries ?? []}
-        />
+        <OrdersChart title="Orders · 7 days" data={analyticsPreview.data?.ordersSeries ?? []} />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <section className="rounded-[var(--radius-xl)] border border-border bg-surface p-4">
-          <h2 className="mb-3 text-sm font-semibold">Popular categories</h2>
-          {(popularCategories.data ?? []).length === 0 ? (
-            <EmptyState title="No category data yet" className="border-0 py-8" />
-          ) : (
-            <ul className="space-y-2">
-              {(popularCategories.data ?? []).map((row) => (
-                <li
-                  key={String(row.category_name)}
-                  className="flex items-center justify-between text-sm"
-                >
-                  <span>{String(row.category_name)}</span>
-                  <span className="tabular-nums text-muted-foreground">
-                    {Number(row.units_sold)} sold
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-
-        <section className="rounded-[var(--radius-xl)] border border-border bg-surface p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold">Recent orders</h2>
-            <Link to={PATHS.restaurant.orders} className="text-xs text-primary">
+      <div className="relative grid gap-4 lg:grid-cols-2">
+        <section className="rounded-2xl border border-border/70 bg-surface/90 p-5 shadow-[var(--shadow-sm)]">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-display text-lg font-semibold tracking-tight">Recent orders</h2>
+            <Link
+              to={PATHS.restaurant.orders}
+              className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:gap-1.5"
+            >
               View all
+              <ArrowUpRight className="size-3.5" aria-hidden />
             </Link>
           </div>
           {(recentOrders.data ?? []).length === 0 ? (
-            <EmptyState title="No orders yet" className="border-0 py-8" />
+            <EmptyState title="No orders yet" className="border-0 py-10" />
           ) : (
-            <ul className="space-y-2">
-              {(recentOrders.data ?? []).map((order) => {
+            <ul className="divide-y divide-border/60">
+              {(recentOrders.data ?? []).slice(0, 5).map((order) => {
                 const customer = Array.isArray(order.customer)
                   ? order.customer[0]
                   : order.customer
@@ -174,16 +177,18 @@ export function DashboardPage() {
                   <li key={order.id}>
                     <Link
                       to={orderDetailPath(order.id)}
-                      className="flex items-center justify-between rounded-[var(--radius-md)] px-2 py-2 text-sm hover:bg-muted"
+                      className="flex items-center justify-between gap-3 py-3 text-sm transition hover:opacity-80"
                     >
-                      <div>
-                        <p className="font-medium">#{order.order_number}</p>
-                        <p className="text-xs text-muted-foreground">
+                      <div className="min-w-0">
+                        <p className="font-medium text-foreground">#{order.order_number}</p>
+                        <p className="truncate text-xs text-muted-foreground">
                           {(customer as { full_name?: string } | null)?.full_name ?? 'Customer'} ·{' '}
                           {formatStatus(order.status)}
                         </p>
                       </div>
-                      <span className="tabular-nums">{formatCurrency(Number(order.total))}</span>
+                      <span className="shrink-0 tabular-nums font-medium text-foreground">
+                        {formatCurrency(Number(order.total))}
+                      </span>
                     </Link>
                   </li>
                 )
@@ -192,28 +197,32 @@ export function DashboardPage() {
           )}
         </section>
 
-        <section className="rounded-[var(--radius-xl)] border border-border bg-surface p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold">Latest reviews</h2>
-            <Link to={PATHS.restaurant.reviews} className="text-xs text-primary">
+        <section className="rounded-2xl border border-border/70 bg-surface/90 p-5 shadow-[var(--shadow-sm)]">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-display text-lg font-semibold tracking-tight">Latest reviews</h2>
+            <Link
+              to={PATHS.restaurant.reviews}
+              className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:gap-1.5"
+            >
               View all
+              <ArrowUpRight className="size-3.5" aria-hidden />
             </Link>
           </div>
           {(latestReviews.data ?? []).length === 0 ? (
-            <EmptyState title="No reviews yet" className="border-0 py-8" />
+            <EmptyState title="No reviews yet" className="border-0 py-10" />
           ) : (
-            <ul className="space-y-3">
-              {(latestReviews.data ?? []).map((review) => {
+            <ul className="divide-y divide-border/60">
+              {(latestReviews.data ?? []).slice(0, 4).map((review) => {
                 const customer = Array.isArray(review.customer)
                   ? review.customer[0]
                   : review.customer
                 return (
-                  <li key={review.id} className="text-sm">
-                    <p className="font-medium">
-                      {(customer as { full_name?: string } | null)?.full_name ?? 'Customer'} ·{' '}
-                      {review.rating}★
+                  <li key={review.id} className="py-3 text-sm">
+                    <p className="font-medium text-foreground">
+                      {(customer as { full_name?: string } | null)?.full_name ?? 'Customer'}
+                      <span className="ml-2 text-secondary">{review.rating}★</span>
                     </p>
-                    <p className="line-clamp-2 text-muted-foreground">{review.review}</p>
+                    <p className="mt-0.5 line-clamp-2 text-muted-foreground">{review.review}</p>
                   </li>
                 )
               })}
@@ -221,27 +230,6 @@ export function DashboardPage() {
           )}
         </section>
       </div>
-
-      <section className="rounded-[var(--radius-xl)] border border-border bg-surface p-4">
-        <h2 className="mb-3 text-sm font-semibold">Quick actions</h2>
-        <div className="flex flex-wrap gap-2">
-          {[
-            [PATHS.restaurant.orders, 'Manage orders'],
-            [PATHS.restaurant.menu, 'Edit menu'],
-            [PATHS.restaurant.inventory, 'Update inventory'],
-            [PATHS.restaurant.analytics, 'View analytics'],
-            [PATHS.restaurant.settings, 'Restaurant settings'],
-          ].map(([to, label]) => (
-            <Link
-              key={to}
-              to={to}
-              className="rounded-[var(--radius-md)] border border-border px-3 py-2 text-sm hover:bg-muted"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </section>
     </div>
   )
 }
