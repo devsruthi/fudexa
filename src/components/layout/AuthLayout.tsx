@@ -151,11 +151,11 @@ export function AuthLayout() {
               className="max-w-md space-y-5 pb-2"
             >
               <h1 className="font-display text-[2.5rem] font-semibold leading-[1.12] tracking-tight text-white xl:text-[2.85rem] 2xl:text-5xl">
-                Run your <span className="text-[#FF6A00]">restaurant.</span>
+                Serve every <span className="text-[#FF6A00]">craving.</span>
                 <br />
-                Delight every order.
+                Run every kitchen.
                 <br />
-                <span className="text-[#FFB347]">Hungry guests</span> order in.
+                A <span className="text-[#FFB347]">dual platform</span> built for both.
               </h1>
               <div className="relative mb-2 max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_16px_40px_-20px_rgb(0_0_0_/_0.45)] backdrop-blur-md">
                 <div
@@ -176,8 +176,8 @@ export function AuthLayout() {
                   </span>
                 </div>
                 <p className="text-sm leading-relaxed text-white/85 xl:text-[0.95rem]">
-                  One platform for{' '}
-                  <span className="font-semibold text-white">both sides of the table</span>
+                  A dual platform for{' '}
+                  <span className="font-semibold text-white">diners and restaurants</span>
                   {' — '}
                   guests order in, kitchens run smooth.
                 </p>

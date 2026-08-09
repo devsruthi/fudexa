@@ -8,7 +8,7 @@ import { PATHS } from '@/routes/paths'
 import { getHomePathForRole } from '@/routes/role-config'
 
 const HERO =
-  'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=2400&q=90'
+  'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2400&q=90'
 
 /** Public marketing landing — brand-first cinematic entry. */
 export function LandingPage() {
@@ -80,10 +80,7 @@ export function LandingPage() {
         <circle cx="180" cy="720" r="160" stroke="url(#landingArc)" strokeWidth="1.2" opacity="0.5" />
       </svg>
 
-      <header className="relative z-20 mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
-        <span className="font-display text-lg font-semibold tracking-tight text-white/90 sm:text-xl">
-          Fudexa
-        </span>
+      <header className="relative z-20 mx-auto flex max-w-6xl items-center justify-end px-5 py-5 sm:px-8">
         <div className="flex items-center gap-3">
           <ThemeToggle />
           {!loading && !isAuthenticated ? (
@@ -109,25 +106,26 @@ export function LandingPage() {
       </header>
 
       <main className="relative z-10 mx-auto flex min-h-[calc(100dvh-5.5rem)] max-w-6xl flex-col justify-center px-5 pb-16 pt-8 sm:px-8 lg:pb-24">
-        <div className="max-w-2xl space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
-          >
-            <img
-              src="/fudexa-logo-light.png"
-              alt="Fudexa"
-              width={480}
-              height={196}
-              className="h-20 w-auto max-w-[min(100%,26rem)] object-contain drop-shadow-[0_10px_32px_rgb(0_0_0_/_0.55)] sm:h-24"
-            />
-            <div className="flex flex-col gap-2.5">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 backdrop-blur-md">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+          {/* Left — brand + story */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex w-full flex-col items-start gap-4 self-start"
+            >
+              <img
+                src="/fudexa-logo-light.png"
+                alt="Fudexa"
+                width={480}
+                height={140}
+                className="ml-0 block h-24 w-auto max-w-[min(100%,32rem)] self-start object-contain object-left drop-shadow-[0_10px_32px_rgb(0_0_0_/_0.55)] sm:h-28 lg:h-32"
+              />
+              <span className="inline-flex items-center gap-2 self-start rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 backdrop-blur-md">
                 <span
                   aria-hidden
-                  className="size-1.5 rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946)] shadow-[0_0_8px_rgb(255_122_0_/_0.7)]"
+                  className="size-1.5 shrink-0 rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946)] shadow-[0_0_8px_rgb(255_122_0_/_0.7)]"
                 />
                 <span className="text-xs font-semibold tracking-[0.06em] text-white/90 uppercase">
                   Restaurant Operations Platform
@@ -135,83 +133,82 @@ export function LandingPage() {
               </span>
               <div
                 aria-hidden
-                className="h-0.5 w-16 rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946,_transparent)]"
+                className="h-0.5 w-16 self-start rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946,_transparent)]"
               />
-            </div>
-          </motion.div>
+            </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]"
-          >
-            Run your <span className="text-[#FF6A00]">restaurant.</span>
-            <br />
-            Delight every order.
-            <br />
-            <span className="text-[#FFB347]">Hungry guests</span> order in.
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.14 }}
-            className="max-w-xl text-base leading-relaxed text-white/75 sm:text-lg"
-          >
-            Customer ordering and restaurant operations — one platform for both sides of the table.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
-            className="flex flex-wrap items-center gap-3"
-          >
-            <Button
-              size="lg"
-              onClick={handleGetStarted}
-              className="h-12 rounded-xl border-0 bg-[linear-gradient(90deg,_#FF7A00_0%,_#E63946_100%)] px-6 text-base text-white shadow-[0_14px_32px_-12px_rgb(230_57_70_/_0.6)]"
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.06 }}
+              className="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.25rem]"
             >
-              Get started
-              <ArrowRight className="size-4" aria-hidden />
-            </Button>
-            {!isAuthenticated ? (
-              <Link to={PATHS.auth.login}>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="h-12 rounded-xl border-white/30 bg-white/10 px-6 text-base text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
-                >
-                  Sign in
-                </Button>
-              </Link>
-            ) : null}
-          </motion.div>
+              Serve every <span className="text-[#FF6A00]">craving.</span>
+              <br />
+              Run every kitchen.
+              <br />
+              A <span className="text-[#FFB347]">dual platform</span> built for both.
+            </motion.h1>
 
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.14 }}
+              className="max-w-xl text-base leading-relaxed text-white/75 sm:text-lg"
+            >
+              Customer food ordering and restaurant operations in one dual platform — diners order
+              in, kitchens run the floor.
+            </motion.p>
+          </div>
+
+          {/* Right — CTAs + audience pills */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.28 }}
-            className="flex flex-wrap gap-3 pt-2"
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.18 }}
+            className="flex flex-col gap-5 lg:items-end lg:text-right"
           >
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-2 backdrop-blur-md">
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#FF7A00,_#E63946)] text-white">
-                <Utensils className="size-3.5" aria-hidden />
-              </span>
-              <span className="pr-1">
-                <span className="block text-xs font-semibold text-white">For diners</span>
-                <span className="block text-[11px] text-white/60">Order & track in real time</span>
-              </span>
+            <div className="flex flex-wrap items-center gap-3 lg:justify-end">
+              <Button
+                size="lg"
+                onClick={handleGetStarted}
+                className="h-12 rounded-xl border-0 bg-[linear-gradient(90deg,_#FF7A00_0%,_#E63946_100%)] px-6 text-base text-white shadow-[0_14px_32px_-12px_rgb(230_57_70_/_0.6)]"
+              >
+                Get started
+                <ArrowRight className="size-4" aria-hidden />
+              </Button>
+              {!isAuthenticated ? (
+                <Link to={PATHS.auth.login}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-12 rounded-xl border-white/30 bg-white/10 px-6 text-base text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
+                  >
+                    Sign in
+                  </Button>
+                </Link>
+              ) : null}
             </div>
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-2 backdrop-blur-md">
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#FF7A00,_#E63946)] text-white">
-                <Store className="size-3.5" aria-hidden />
-              </span>
-              <span className="pr-1">
-                <span className="block text-xs font-semibold text-white">For restaurants</span>
-                <span className="block text-[11px] text-white/60">Kitchen, menu & analytics</span>
-              </span>
+
+            <div className="flex w-full max-w-md flex-col gap-3 lg:ml-auto">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-2.5 text-left backdrop-blur-md">
+                <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#FF7A00,_#E63946)] text-white">
+                  <Utensils className="size-3.5" aria-hidden />
+                </span>
+                <span className="pr-1">
+                  <span className="block text-xs font-semibold text-white">For diners</span>
+                  <span className="block text-[11px] text-white/60">Order & track in real time</span>
+                </span>
+              </div>
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-2.5 text-left backdrop-blur-md">
+                <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#FF7A00,_#E63946)] text-white">
+                  <Store className="size-3.5" aria-hidden />
+                </span>
+                <span className="pr-1">
+                  <span className="block text-xs font-semibold text-white">For restaurants</span>
+                  <span className="block text-[11px] text-white/60">Kitchen, menu & analytics</span>
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>
