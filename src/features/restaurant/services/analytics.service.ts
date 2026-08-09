@@ -123,34 +123,44 @@ export async function getAnalyticsBundle(
   if (ordersRes.error) throw ordersRes.error
 
   const orders = ordersRes.data ?? []
+  const dayKey = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const dayLabel = (d: Date) =>
+    d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+
   const dayMap = new Map<string, { revenue: number; count: number }>()
   const hourMap = new Map<number, number>()
   const statusMap = new Map<string, number>()
 
   for (const order of orders) {
-    const day = new Date(order.created_at).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-    })
-    const hour = new Date(order.created_at).getHours()
-    const entry = dayMap.get(day) ?? { revenue: 0, count: 0 }
+    const created = new Date(order.created_at)
+    const key = dayKey(created)
+    const hour = created.getHours()
+    const entry = dayMap.get(key) ?? { revenue: 0, count: 0 }
     entry.count += 1
     if (order.status === 'Completed' && order.payment_status === 'Paid') {
       entry.revenue += Number(order.total)
     }
-    dayMap.set(day, entry)
+    dayMap.set(key, entry)
     hourMap.set(hour, (hourMap.get(hour) ?? 0) + 1)
     statusMap.set(order.status, (statusMap.get(order.status) ?? 0) + 1)
   }
 
-  const revenueSeries: ChartPoint[] = [...dayMap.entries()].map(([label, v]) => ({
-    label,
-    value: Math.round(v.revenue * 100) / 100,
-  }))
-  const ordersSeries: ChartPoint[] = [...dayMap.entries()].map(([label, v]) => ({
-    label,
-    value: v.count,
-  }))
+  // Continuous chronological series (oldest → newest), zeros for quiet days
+  const revenueSeries: ChartPoint[] = []
+  const ordersSeries: ChartPoint[] = []
+  const cursor = new Date(bounds.from)
+  cursor.setHours(0, 0, 0, 0)
+  const endDay = new Date(bounds.to)
+  endDay.setHours(0, 0, 0, 0)
+  while (cursor <= endDay) {
+    const key = dayKey(cursor)
+    const entry = dayMap.get(key) ?? { revenue: 0, count: 0 }
+    const label = dayLabel(cursor)
+    revenueSeries.push({ label, value: Math.round(entry.revenue * 100) / 100 })
+    ordersSeries.push({ label, value: entry.count })
+    cursor.setDate(cursor.getDate() + 1)
+  }
 
   const months = monthlyRes.data ?? []
   const current = Number(months[0]?.revenue ?? 0)

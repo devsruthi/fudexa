@@ -94,35 +94,42 @@ export function RestaurantLayout() {
     <div className="flex min-h-dvh bg-page-gradient">
       <RestaurantRealtimeBridge />
       <aside className="hidden w-64 shrink-0 border-r border-border/70 app-shell-surface md:flex md:flex-col">
-        <div className="flex h-16 items-center border-b border-border/70 px-5">
-          <span className="font-display text-xl font-semibold tracking-tight text-brand-gradient">
-            Fudexa
-          </span>
+        <div className="flex h-[4.25rem] items-center border-b border-border/70 px-4">
+          <img
+            src="/fudexa-logo.png"
+            alt="Fudexa"
+            className="h-9 w-auto max-w-[10.5rem] object-contain object-left dark:hidden"
+          />
+          <img
+            src="/fudexa-logo-light.png"
+            alt="Fudexa"
+            className="hidden h-9 w-auto max-w-[10.5rem] object-contain object-left dark:block"
+          />
         </div>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label="Restaurant">
           <NavItems />
-        </nav>
-        <div className="space-y-3 border-t border-border/70 p-3">
-          {user ? (
-            <div className="rounded-[var(--radius-lg)] bg-muted/70 px-3 py-2.5">
-              <p className="truncate text-sm font-semibold text-foreground">{user.fullName}</p>
-              <p className="truncate text-xs text-muted-foreground">
-                {user.restaurantName || user.email}
-              </p>
+          <div className="mt-2 space-y-3 border-t border-border/70 pt-3">
+            {user ? (
+              <div className="rounded-[var(--radius-lg)] bg-muted/70 px-3 py-2.5">
+                <p className="truncate text-sm font-semibold text-foreground">{user.fullName}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {user.restaurantName || user.email}
+                </p>
+              </div>
+            ) : null}
+            <div className="flex items-center justify-between gap-2">
+              <ThemeToggle />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => void handleLogout()}
+                aria-label="Sign out"
+              >
+                <LogOut className="size-4" />
+              </Button>
             </div>
-          ) : null}
-          <div className="flex items-center justify-between gap-2">
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => void handleLogout()}
-              aria-label="Sign out"
-            >
-              <LogOut className="size-4" />
-            </Button>
           </div>
-        </div>
+        </nav>
       </aside>
 
       {sidebarOpen ? (
@@ -135,7 +142,16 @@ export function RestaurantLayout() {
           />
           <aside className="relative z-10 flex h-full w-64 flex-col bg-surface shadow-[var(--shadow-lg)]">
             <div className="flex h-14 items-center justify-between border-b border-border px-4">
-              <span className="font-display text-lg font-semibold">Fudexa</span>
+              <img
+                src="/fudexa-logo.png"
+                alt="Fudexa"
+                className="h-8 w-auto max-w-[9rem] object-contain object-left dark:hidden"
+              />
+              <img
+                src="/fudexa-logo-light.png"
+                alt="Fudexa"
+                className="hidden h-8 w-auto max-w-[9rem] object-contain object-left dark:block"
+              />
               <Button
                 variant="ghost"
                 size="sm"
@@ -164,9 +180,16 @@ export function RestaurantLayout() {
             >
               <Menu className="size-4" />
             </Button>
-            <span className="font-display text-lg font-semibold text-brand-gradient md:hidden">
-              Fudexa
-            </span>
+            <img
+              src="/fudexa-logo.png"
+              alt="Fudexa"
+              className="h-7 w-auto max-w-[8rem] object-contain object-left dark:hidden md:hidden"
+            />
+            <img
+              src="/fudexa-logo-light.png"
+              alt="Fudexa"
+              className="hidden h-7 w-auto max-w-[8rem] object-contain object-left dark:block md:hidden"
+            />
           </div>
           <div className="ml-auto flex items-center gap-2">
             <NotificationCenter />

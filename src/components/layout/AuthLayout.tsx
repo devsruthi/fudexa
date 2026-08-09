@@ -118,16 +118,30 @@ export function AuthLayout() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
-              className="space-y-2"
+              className="space-y-4"
             >
               <img
                 src="/fudexa-logo-light.png"
                 alt="Fudexa"
-                width={420}
-                height={172}
-                className="h-[4.75rem] w-auto max-w-[min(100%,24rem)] object-contain drop-shadow-[0_6px_24px_rgb(0_0_0_/_0.55)] xl:h-[5.5rem]"
+                width={480}
+                height={196}
+                className="h-[5.75rem] w-auto max-w-[min(100%,28rem)] object-contain drop-shadow-[0_8px_28px_rgb(0_0_0_/_0.55)] xl:h-[6.5rem]"
               />
-              <p className="text-sm font-medium text-white/70">Restaurant Operations Platform</p>
+              <div className="flex flex-col gap-2.5">
+                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-md">
+                  <span
+                    aria-hidden
+                    className="size-1.5 rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946)] shadow-[0_0_8px_rgb(255_122_0_/_0.7)]"
+                  />
+                  <span className="text-xs font-semibold tracking-[0.06em] text-white/90 uppercase">
+                    Restaurant Operations Platform
+                  </span>
+                </span>
+                <div
+                  aria-hidden
+                  className="h-0.5 w-16 rounded-full bg-[linear-gradient(90deg,_#FF8A1F,_#E63946,_transparent)]"
+                />
+              </div>
             </motion.div>
 
             <motion.div
@@ -137,11 +151,11 @@ export function AuthLayout() {
               className="max-w-md space-y-5 pb-2"
             >
               <h1 className="font-display text-[2.5rem] font-semibold leading-[1.12] tracking-tight text-white xl:text-[2.85rem] 2xl:text-5xl">
-                Run your <span className="text-[#FF6A00]">restaurant.</span>
+                Serve every <span className="text-[#FF6A00]">craving.</span>
                 <br />
-                Delight every order.
+                Run every kitchen.
                 <br />
-                <span className="text-[#FFB347]">Hungry guests</span> order in.
+                A <span className="text-[#FFB347]">dual platform</span> built for both.
               </h1>
               <div className="relative mb-2 max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_16px_40px_-20px_rgb(0_0_0_/_0.45)] backdrop-blur-md">
                 <div
@@ -162,8 +176,8 @@ export function AuthLayout() {
                   </span>
                 </div>
                 <p className="text-sm leading-relaxed text-white/85 xl:text-[0.95rem]">
-                  One platform for{' '}
-                  <span className="font-semibold text-white">both sides of the table</span>
+                  A dual platform for{' '}
+                  <span className="font-semibold text-white">diners and restaurants</span>
                   {' — '}
                   guests order in, kitchens run smooth.
                 </p>
